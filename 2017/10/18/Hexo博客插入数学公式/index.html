@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Hexo博客插入数学公式 | 博客寥寥 | 从记笔记转向写博客，就像从写私有项目转向写开源项目一样困难</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="博客,Markdown,MathJax">
+    <meta name="description" content="引言之前写 华为面试记（三） 的时候，用到了矩阵和数列，因此需要在博客中插入公式。抽空研究了一下，发现 Hexo 可以很方便地使用 MathJax 来插入数学公式，这里简单记录一下使用方法。 正文本文分两部分，一部分讲怎么使用 MathJax 作为 Hexo 博客的公式编辑器，另一部分讲 LaTex 公式语法。 MathJax 的使用方法一：博文中启用 MathJax紧跟文档头部元数据之后，嵌入">
+<meta name="keywords" content="博客,Markdown,MathJax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客插入数学公式">
+<meta property="og:url" content="http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/index.html">
+<meta property="og:site_name" content="博客寥寥">
+<meta property="og:description" content="引言之前写 华为面试记（三） 的时候，用到了矩阵和数列，因此需要在博客中插入公式。抽空研究了一下，发现 Hexo 可以很方便地使用 MathJax 来插入数学公式，这里简单记录一下使用方法。 正文本文分两部分，一部分讲怎么使用 MathJax 作为 Hexo 博客的公式编辑器，另一部分讲 LaTex 公式语法。 MathJax 的使用方法一：博文中启用 MathJax紧跟文档头部元数据之后，嵌入">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-06T01:24:58.982Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo博客插入数学公式">
+<meta name="twitter:description" content="引言之前写 华为面试记（三） 的时候，用到了矩阵和数列，因此需要在博客中插入公式。抽空研究了一下，发现 Hexo 可以很方便地使用 MathJax 来插入数学公式，这里简单记录一下使用方法。 正文本文分两部分，一部分讲怎么使用 MathJax 作为 Hexo 博客的公式编辑器，另一部分讲 LaTex 公式语法。 MathJax 的使用方法一：博文中启用 MathJax紧跟文档头部元数据之后，嵌入">
+    
+        <link rel="alternate" type="application/atom+xml" title="博客寥寥" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵恒昶</h5>
+          <a href="mailto:hengchang.zhao@foxmail.com" title="hengchang.zhao@foxmail.com" class="mail">hengchang.zhao@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/blogless" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Hexo博客插入数学公式</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Hexo博客插入数学公式</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-18T04:37:16.000Z" itemprop="datePublished" class="page-time">
+  2017-10-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/tools/">实用工具</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引言"><span class="post-toc-number">1.</span> <span class="post-toc-text">引言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正文"><span class="post-toc-number">2.</span> <span class="post-toc-text">正文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MathJax-的使用"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">MathJax 的使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法一：博文中启用-MathJax"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">方法一：博文中启用 MathJax</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法二：用-config-yml-配置"><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">方法二：用 _config.yml 配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LaTex-语法"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">LaTex 语法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大括号"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">大括号</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#角标"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">角标</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#矩阵"><span class="post-toc-number">2.2.3.</span> <span class="post-toc-text">矩阵</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Markdown-与-MathJax-语法冲突"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">Markdown 与 MathJax 语法冲突</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#换行"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">换行</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#下标"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">下标</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#通用解决方案"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">通用解决方案</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法一"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">方法一</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法二"><span class="post-toc-number">2.4.2.</span> <span class="post-toc-text">方法二</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法三"><span class="post-toc-number">2.4.3.</span> <span class="post-toc-text">方法三</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法四"><span class="post-toc-number">2.4.4.</span> <span class="post-toc-text">方法四</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法五"><span class="post-toc-number">2.4.5.</span> <span class="post-toc-text">方法五</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#友善度"><span class="post-toc-number">4.</span> <span class="post-toc-text">友善度</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完"><span class="post-toc-number">5.</span> <span class="post-toc-text">完</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Hexo博客插入数学公式"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Hexo博客插入数学公式</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-18 12:37:16" datetime="2017-10-18T04:37:16.000Z"  itemprop="datePublished">2017-10-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/tools/">实用工具</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前写 <a href="/2017/10/17/华为面试记（三）">华为面试记（三）</a> 的时候，用到了矩阵和数列，因此需要在博客中插入公式。抽空研究了一下，发现 Hexo 可以很方便地使用 MathJax 来插入数学公式，这里简单记录一下使用方法。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>本文分两部分，一部分讲怎么使用 <a href="https://www.mathjax.org/" target="_blank" rel="noopener">MathJax</a> 作为 Hexo 博客的公式编辑器，另一部分讲 LaTex 公式语法。</p>
+<h3 id="MathJax-的使用"><a href="#MathJax-的使用" class="headerlink" title="MathJax 的使用"></a>MathJax 的使用</h3><h4 id="方法一：博文中启用-MathJax"><a href="#方法一：博文中启用-MathJax" class="headerlink" title="方法一：博文中启用 MathJax"></a>方法一：博文中启用 MathJax</h4><p>紧跟文档头部元数据之后，嵌入 html 语句：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">async</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>优点是按需插入，不需要插入公式的文档就不进行 MathJax 渲染，提高网页速度。</p>
+<p>缺点是博文中插入了内容无关信息。</p>
+<h4 id="方法二：用-config-yml-配置"><a href="#方法二：用-config-yml-配置" class="headerlink" title="方法二：用 _config.yml 配置"></a>方法二：用 _config.yml 配置</h4><p>修改主题目录下的 <code>_config.yml</code> 文件，改动如下：</p>
+<figure class="highlight yml"><figcaption><span>/themes/indigo/_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mathjax:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  cdn:</span> <span class="string">//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML</span></span><br></pre></td></tr></table></figure>
+
+<p>优点是不用在博文中加入过多无关信息。</p>
+<p>缺点是可能每个页面都渲染，影响访问速度。</p>
+<p>这里我使用的是第二种方案。</p>
+<p>总之，现在 MathJax 编辑器就能使用了。</p>
+<p>插入公式的时候，如果是插入行内，需要使用　<code>\(公式\)</code> 或者 <code>$公式$</code>　这种形式；如果是插入单行公式，则需要使用　<code>\[公式\]</code> 或者 <code>$$公式$$</code>　这种形式。（在输入这个<code>$</code>符号的时候，为了不被　MathJax 识别为公式进行渲染，我用 <strong>`</strong> 把它引用了起来。）</p>
+<p>当然，使用 MathJax 插入公式也可以先在 <a href="https://www.mathjax.org/" target="_blank" rel="noopener">MathJax官网</a> 上输入公式预览效果，然后插入文档使用，它可以帮你检查语法错误。</p>
+<h3 id="LaTex-语法"><a href="#LaTex-语法" class="headerlink" title="LaTex 语法"></a>LaTex 语法</h3><h4 id="大括号"><a href="#大括号" class="headerlink" title="大括号"></a>大括号</h4><p>双\公式内换行，cases实现大括号右多行赋值，&amp;用来对齐</p>
+<p><em>但是这里公式换行需要三个<code>｜</code>，原因后面会解释</em></p>
+<figure class="highlight markdown"><figcaption><span>斐波那契数列</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">F(n)=</span><br><span class="line"><span class="code">    \begin&#123;cases&#125;</span></span><br><span class="line"><span class="code">    1 &amp; \text&#123;n = 1&#125; \\</span></span><br><span class="line"><span class="code">    1 &amp; \text&#123;n = 2&#125; \\</span></span><br><span class="line"><span class="code">    F(n-1)+F(n-2) &amp; \text&#123;n&gt;2&#125;</span></span><br><span class="line"><span class="code">    \end&#123;cases&#125;</span></span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+
+<div>$$
+F(n)=
+    \begin{cases}
+    1 & \text{n = 1} \\
+    1 & \text{n = 2} \\
+    F(n-1)+F(n-2) & \text{n>2}
+    \end{cases}
+$$</div>
+
+<h4 id="角标"><a href="#角标" class="headerlink" title="角标"></a>角标</h4><p><code>^</code> 表示上标，<code>_</code>表示下标。如果上下标的内容多于一个字符，要用{}把这些内容括起来当成一个整体。上下标是可以嵌套的，也可以同时使用。</p>
+<p>另外，如果要在左右两边都有上下标，可以用 <code>\sideset</code> 命令。</p>
+<h4 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">  \begin&#123;pmatrix&#125; 1 &amp; 2 \\ 3 &amp; 4 \\ \end&#123;pmatrix&#125; </span><br><span class="line">  \begin&#123;bmatrix&#125; 1 &amp; 2 \\ 3 &amp; 4 \\ \end&#123;bmatrix&#125; </span><br><span class="line">  \begin&#123;vmatrix&#125; 1 &amp; 2 \\ 3 &amp; 4 \\ \end&#123;vmatrix&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+
+<div>$$
+  \begin{pmatrix} 1 & 2 \\ 3 & 4 \\ \end{pmatrix} 
+  \begin{bmatrix} 1 & 2 \\ 3 & 4 \\ \end{bmatrix} 
+  \begin{vmatrix} 1 & 2 \\ 3 & 4 \\ \end{vmatrix}
+$$</div>
+
+<h3 id="Markdown-与-MathJax-语法冲突"><a href="#Markdown-与-MathJax-语法冲突" class="headerlink" title="Markdown 与 MathJax 语法冲突"></a>Markdown 与 MathJax 语法冲突</h3><h4 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h4><p>MathJax 语法中的换行应该是 <code>\\</code>，然而由于第一个 <code>\</code> 会被 markdown 解析成转义符，也就相当于只剩下了一个 <code>\</code>，所以有时会使用 <code>\\\</code>，三个反斜线来表示换行。</p>
+<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><p><code>_</code> 是 MathJax 语法中的下标连接符，但是在 markdown 语法中，两个 <code>_</code> 中间的文字会被解析成斜体，需要使用 <code>\</code> 进行转义，留下 <code>_</code> 给 MathJax。也就是说，在公式中有时需要使用<code>_</code> 的地方改用 <code>\_</code>。</p>
+<h3 id="通用解决方案"><a href="#通用解决方案" class="headerlink" title="通用解决方案"></a>通用解决方案</h3><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>上文已述，使用转义字符，不提倡</p>
+<h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><p>手动escape，添加到博文之中，或者修改 js 渲染脚本：</p>
+<figure class="highlight js"><figcaption><span>/nodes_modules/marked/lib/marked.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//escape: /^\\([\\`*&#123;&#125;\[\]()# +\-.!_&gt;])/,</span></span><br><span class="line"><span class="built_in">escape</span>: <span class="regexp">/^\\([`*&#123;&#125;\[\]()# +\-.!_&gt;])/</span>,</span><br><span class="line"><span class="comment">//去掉\\转义</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//em: /^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span></span><br><span class="line">em: <span class="regexp">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</span><br><span class="line"><span class="comment">//去掉_的斜体含义</span></span><br></pre></td></tr></table></figure>
+
+<p>这种方式可能造成其它的字符会冲突，暂时将就着用，以后随时修改。</p>
+<h4 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h4><p>还有一种方法是用 <code>{% raw %}$ 公式 ${% endraw %}</code> 这种形式，即使用 <code>{% raw %}$` 和 `${% endraw %}</code> 把行内代码包起来，不让 markdown 渲染器对公式内部进行渲染。（这里为了打出来这两个标签而不让标签生效，我多打了一遍，让外层的标签起作用，这样就只显示内层标签了）</p>
+<p>这种方法比前两种要好。</p>
+<h4 id="方法四"><a href="#方法四" class="headerlink" title="方法四"></a>方法四</h4><p>发现了一个 <a href="https://marketplace.visualstudio.com/items?itemName=goessner.mdmath" target="_blank" rel="noopener">Markdown+Math</a> 插件，可以在 VSCode 里面直接预览 markdown 中的 Latex 公式，不过这个插件还有一些小限制（比如行内公式的 <code>$</code> 与公式之间不能有空格）。</p>
+<p>使用这个插件的话，必须使用纯粹的 Latex 语法，不能用 <code> {% raw %} {% endraw %}</code> 这种多余的符号（这当然更好，博文更纯粹），当然也就要求我们需要对 Hexo 中的 MathJax 渲染问题重新进行配置。</p>
+<p>简单粗暴一步到位的方法 —— 更换渲染器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在主题_config.yml 中配置</span></span><br><span class="line">mathjax: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 要先卸载已有的渲染器</span></span><br><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载已经不再维护的 hexo-math 插件</span></span><br><span class="line">npm uninstall hexo-math --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先安装好 pandoc，然后执行如下命令</span></span><br><span class="line">npm install hexo-renderer-pandoc --save</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法五"><a href="#方法五" class="headerlink" title="方法五"></a>方法五</h4><p>公式显示错乱的本质在于：Latex公式在被mathjax处理之前，被markdown多余处理了一遍。所以我们可以想办法让latex公式绕过markdown的处理。由于大多数markdown渲染器都支持html标签，以此来补足markdown排版短板，我们可以在公式外用一对<code>&lt;div&gt;&lt;/div&gt;</code>包裹起来，以达到这个效果。此外还可以使用<code>&lt;p&gt;&lt;/p&gt;</code>，但是不能使用<code>&lt;span&gt;&lt;/span&gt;</code>。另外需要注意的是，代码块标签前后要加空行。</p>
+<p>行内公式怎么处理？和文字一起，整行包起来就可以了。</p>
+<p>当然，这个方案还有一点小问题，那就是行内公式坐在行还有其他markdown格式符存在的时候怎么办。我的建议是把公式部分拆一行没有格式的出来。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="https://www.zybuluo.com/knight/note/96093" target="_blank" rel="noopener">MathJax使用LaTeX语法编写数学公式教程 - 作业部落</a></p>
+</li>
+<li><p><a href="http://www.yangzhiping.com/tech/pandoc.html" target="_blank" rel="noopener">Markdown写作进阶：Pandoc入门浅谈 - 阳志平的网志</a></p>
+</li>
+<li><p><a href="http://blog.junyu.io/posts/0013-qa-posts-about-science.html" target="_blank" rel="noopener">Q&amp;A：科学写作中的基本工具和用法 | 浚宇的博客</a></p>
+</li>
+<li><p><a href="http://blog.junyu.io/posts/0011-hexo-math-plugin-test-report.html" target="_blank" rel="noopener">Hexo实现Math公式撰写的实验报告 | 浚宇的博客</a></p>
+</li>
+</ul>
+<h2 id="友善度"><a href="#友善度" class="headerlink" title="友善度"></a>友善度</h2><p>用到再随时补充。</p>
+<h2 id="完"><a href="#完" class="headerlink" title="完"></a>完</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-06T01:24:58.982Z" itemprop="dateUpdated">2019-09-06 09:24:58</time>
+</span><br>
+
+
+        
+        版权归作者所有，转载请注明出处 <br/><a href="/2017/10/18/Hexo博客插入数学公式/" target="_blank" rel="external">http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://blogless.github.io">
+            <img src="/img/avatar.jpg" alt="赵恒昶">
+            赵恒昶
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MathJax/">MathJax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客/">博客</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/&title=《Hexo博客插入数学公式》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/&title=《Hexo博客插入数学公式》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo博客插入数学公式》 — 博客寥寥&url=http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/10/20/华为笔试题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">华为笔试题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/17/华为面试记（三）/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">华为面试记（三）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>赵恒昶 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/&title=《Hexo博客插入数学公式》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/&title=《Hexo博客插入数学公式》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo博客插入数学公式》 — 博客寥寥&url=http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/18/Hexo博客插入数学公式/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrUlEQVR42u3awW7CMBAEUP7/p6nUMyQzXrtQ6eVUQQh5rpRdxvt4xMfz90heaV+/PvPd35sPPDw8vKVbf3dcn9N+8fWZ+bvJPePh4eGd5iWXa8tAsgQ3NxcUjBsLHh4e3kd5yddcN8RrTTMeHh7ef+etxRbtoz9ZLDw8PLzP8tq44TqwyKkJ+4+yFjw8PLzuOkX8+g1/H9zfw8PDwxvsqk8evmtbaGtl4O2V8fDw8A7w8rA13xJrg9c8+Fhr4vHw8PD+npcUhvYKefebvHuzfHh4eHgHePlP/bwwTIpHu8RR+cHDw8M7wNv7gG43t9pNr/wVPDw8vL28fFBgcbXisGPtf3JzDh4eHt4xXttGt0HA2vnzBh0PDw/vBG++BZU05ZNz1sDFNhgeHh5eyWuD1HbUYD5S0Dblb38x4OHh4W3lJV/cRqhr8cQjOIpoAw8PD+8YbzIO1d7uZAggX4JRd4+Hh4c3fsi241ltYDEf0qpbajw8PLwxb9IoJ+HCMzgmgXI0dIWHh4d3gJc3u+1CtIsyGbq6CSPw8PDwxrxJ29pGA/PRhLY84OHh4Z3mtZdeC4vn4wL1QuDh4eFt5bXjVpMRqDa0bV8pJiPw8PDwNvHmRSKJM9qS0F75RYyLh4eHd4x34hE/iTk2RCR4eHh4B3jtptTNVlNZKnYVg6jw4OHh4W3i1U1qAGhb87XPRu04Hh4e3gHerjggabXbwnMEhoeHhzfmPcsjb6N3jQ7kccmLT+Hh4eEd4M2rShv4Tm40j5Lx8PDwTvPyYpA8gtcKSbupViwrHh4e3jFe+9CfHKMhgHKZ8PDw8L6B1wa47UBAWwZu7hAPDw/vo7y1d9ei3knAsVgY8PDw8EpeHka022Ptp+YB7ihrwcPDwzu2t54/oOdt8aS5x8PDw9vK+wFOxCIW2r+GagAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '你快回来～';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)我回来了！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

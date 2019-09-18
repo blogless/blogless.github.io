@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>华为面试记（一） | 博客寥寥 | 从记笔记转向写博客，就像从写私有项目转向写开源项目一样困难</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="C/C++,面试">
+    <meta name="description" content="毫无准备，兵荒马乱地就上了战场，第一战就是华为，还真是莫大的勇气。 网申之后三天收到在线测评通知，次日收到面试通知，次周一下午，面试。 技术面的面试官是非常和蔼的一个人，耐心看了我那苍白的简历，并试图从中挖掘出任何有价值的项目经历。 是的，项目经历，项目经历，项目经历！重要的事情说三遍。 在耐心听完我的介绍之后，开始问我一些计算机基础知识。 为什么是计算机基础知识？因为这是校招，对于本科生来讲，只">
+<meta name="keywords" content="C&#x2F;C++,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="华为面试记（一）">
+<meta property="og:url" content="http://blogless.github.io/2017/10/17/华为面试记（一）/index.html">
+<meta property="og:site_name" content="博客寥寥">
+<meta property="og:description" content="毫无准备，兵荒马乱地就上了战场，第一战就是华为，还真是莫大的勇气。 网申之后三天收到在线测评通知，次日收到面试通知，次周一下午，面试。 技术面的面试官是非常和蔼的一个人，耐心看了我那苍白的简历，并试图从中挖掘出任何有价值的项目经历。 是的，项目经历，项目经历，项目经历！重要的事情说三遍。 在耐心听完我的介绍之后，开始问我一些计算机基础知识。 为什么是计算机基础知识？因为这是校招，对于本科生来讲，只">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-25T03:09:15.708Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="华为面试记（一）">
+<meta name="twitter:description" content="毫无准备，兵荒马乱地就上了战场，第一战就是华为，还真是莫大的勇气。 网申之后三天收到在线测评通知，次日收到面试通知，次周一下午，面试。 技术面的面试官是非常和蔼的一个人，耐心看了我那苍白的简历，并试图从中挖掘出任何有价值的项目经历。 是的，项目经历，项目经历，项目经历！重要的事情说三遍。 在耐心听完我的介绍之后，开始问我一些计算机基础知识。 为什么是计算机基础知识？因为这是校招，对于本科生来讲，只">
+    
+        <link rel="alternate" type="application/atom+xml" title="博客寥寥" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵恒昶</h5>
+          <a href="mailto:hengchang.zhao@foxmail.com" title="hengchang.zhao@foxmail.com" class="mail">hengchang.zhao@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/blogless" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">华为面试记（一）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">华为面试记（一）</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-17T00:30:13.000Z" itemprop="datePublished" class="page-time">
+  2017-10-17
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-华为面试记（一）"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">华为面试记（一）</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-17 08:30:13" datetime="2017-10-17T00:30:13.000Z"  itemprop="datePublished">2017-10-17</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>毫无准备，兵荒马乱地就上了战场，第一战就是华为，还真是莫大的勇气。</p>
+<p>网申之后三天收到在线测评通知，次日收到面试通知，次周一下午，面试。</p>
+<p>技术面的面试官是非常和蔼的一个人，耐心看了我那苍白的简历，并试图从中挖掘出任何有价值的项目经历。</p>
+<p>是的，<strong>项目经历，项目经历，项目经历！</strong>重要的事情说三遍。</p>
+<p>在耐心听完我的介绍之后，开始问我一些计算机基础知识。</p>
+<p>为什么是计算机基础知识？因为这是校招，对于本科生来讲，只有基础知识是最合适的考察标准，专业技能都是要在进公司之后培训的，越是大厂越是如此。当然，如果是社会招聘的话，对不起，面试官只想知道你现在能干什么活儿。所以说，校招进一个靠谱的公司很重要，无论你是想一直在一家干下去还是有中途跳槽的心理准备！</p>
+<p>专业面大概进行了一个小时，一路被面试官按在地上打。之后出来等了一个半小时（？！！）才又叫到我去综合面，这次只持续了三四十分钟的样子。</p>
+<p>说起来综合面真是无所不问，看似闲聊，但总会随时抓住你的漏洞打断你进行追问。尴尬，老底被扒得精光……</p>
+<p>有趣的是，综合面的面试官告诉我说他们的网络是 64k 的网络，通网络不久，数据库什么的也只有少数部门用，23333，也不知是真是假。</p>
+<p>不过总算是完事了，既没有想象的那么恐怖（主要是面试官态度都挺好），也没有很容易（这个主要是自己太水）。总之，两周之后见结果吧！</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-08-25T03:09:15.708Z" itemprop="dateUpdated">2019-08-25 11:09:15</time>
+</span><br>
+
+
+        
+        版权归作者所有，转载请注明出处 <br/><a href="/2017/10/17/华为面试记（一）/" target="_blank" rel="external">http://blogless.github.io/2017/10/17/华为面试记（一）/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://blogless.github.io">
+            <img src="/img/avatar.jpg" alt="赵恒昶">
+            赵恒昶
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/">C/C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/17/华为面试记（一）/&title=《华为面试记（一）》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/17/华为面试记（一）/&title=《华为面试记（一）》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/17/华为面试记（一）/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《华为面试记（一）》 — 博客寥寥&url=http://blogless.github.io/2017/10/17/华为面试记（一）/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/17/华为面试记（一）/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/10/17/华为面试记（二）/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">华为面试记（二）</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/06/一行脚本搭建局域网服务器/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">一行脚本搭建局域网服务器</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>赵恒昶 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/17/华为面试记（一）/&title=《华为面试记（一）》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/17/华为面试记（一）/&title=《华为面试记（一）》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/17/华为面试记（一）/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《华为面试记（一）》 — 博客寥寥&url=http://blogless.github.io/2017/10/17/华为面试记（一）/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/17/华为面试记（一）/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACGUlEQVR42u3aUY7CMAwFQO5/6XKClme7RWoy+VohSjIgee3Yn0+8jpOVvP/6PdWnRgsDA+O1jONynW2QvJIfMdn3x5eIgYGxAeM6IPbek7ATRhKsMTAwMKqBNUn+8kCPgYGBMQ+mSbKYp4wYGBgYkyI2D77zkvXBWhwDA+OFjPzW/f9/P9LfwMDAeBXjKK7e9nmAbp4KAwNjaUYe4ObJ4qhATRqiGBgYGzCqH5qPR/RyvDxAY2BgrM3It5kfq5DkVduoGBgYSzN6KWBexPaGLaqtBQwMjN0YvSK2nI0WX78r9cTAwHg7I2kD/DPha17GYWBgbMDIQ14Pnxy310DFwMBYlVEdcageonpvX/2aMDAw9mFMkrkkubw3BfwxZoGBgbEco9d0rD71yITIvHeKgYHxKkZeLuapZH7Qapgu/PfAwMBYjpE/nAfNPEHsFcAYGBj7MKrjX/OsrJdKFoYtMDAwlmPcFSLn7Dzcn/4OGBgYGzDyJKxX1hYu93sZLgYGxtKMPNXLuw3zK7lywMXAwFia0Rt9mIfsT3GdPoWBgbEo4yiu5OiTEY1mYYyBgbE0465xsfm8Vu+6rQzDwMB4LSMvNfMGZzXITtgYGBj7MO4KfNWSuHeFh4GBgRFdxBcv1Kqf0MxeMTAwMC7D5Tx9rI6m/Ri2wMDAWI5RHYnopYl5m7O6FwYGxtqMXt7V2yZvWybhGAMDYwPGF1eXaph4gCGWAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '你快回来～';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)我回来了！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

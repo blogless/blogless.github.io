@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>华为面试记（三） | 博客寥寥 | 从记笔记转向写博客，就像从写私有项目转向写开源项目一样困难</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="C/C++,面试">
+    <meta name="description" content="—— 斐波那契数列   引子技术面的面试官让我手写了一个斐波那契数列。在跟面试官确认之后我用迭代的方法写了这道题。（我明明记得斐波那契数列有一个通项公式的，还跟面试官问了一下这种解法，面试官竟然一脸懵逼，是考察点不是这个还是怎么的…… 我跟面试官征求了一下利用数组缓存数据的优化方案，面试官根本不在乎这一点优化 2333 斐波那契数列题目描述： $$ F(n)=     \begin{cases}">
+<meta name="keywords" content="C&#x2F;C++,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="华为面试记（三）">
+<meta property="og:url" content="http://blogless.github.io/2017/10/17/华为面试记（三）/index.html">
+<meta property="og:site_name" content="博客寥寥">
+<meta property="og:description" content="—— 斐波那契数列   引子技术面的面试官让我手写了一个斐波那契数列。在跟面试官确认之后我用迭代的方法写了这道题。（我明明记得斐波那契数列有一个通项公式的，还跟面试官问了一下这种解法，面试官竟然一脸懵逼，是考察点不是这个还是怎么的…… 我跟面试官征求了一下利用数组缓存数据的优化方案，面试官根本不在乎这一点优化 2333 斐波那契数列题目描述： $$ F(n)=     \begin{cases}">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-06T01:30:04.915Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="华为面试记（三）">
+<meta name="twitter:description" content="—— 斐波那契数列   引子技术面的面试官让我手写了一个斐波那契数列。在跟面试官确认之后我用迭代的方法写了这道题。（我明明记得斐波那契数列有一个通项公式的，还跟面试官问了一下这种解法，面试官竟然一脸懵逼，是考察点不是这个还是怎么的…… 我跟面试官征求了一下利用数组缓存数据的优化方案，面试官根本不在乎这一点优化 2333 斐波那契数列题目描述： $$ F(n)=     \begin{cases}">
+    
+        <link rel="alternate" type="application/atom+xml" title="博客寥寥" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵恒昶</h5>
+          <a href="mailto:hengchang.zhao@foxmail.com" title="hengchang.zhao@foxmail.com" class="mail">hengchang.zhao@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/blogless" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">华为面试记（三）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">华为面试记（三）</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-17T05:54:55.000Z" itemprop="datePublished" class="page-time">
+  2017-10-17
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引子"><span class="post-toc-number">1.</span> <span class="post-toc-text">引子</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#斐波那契数列"><span class="post-toc-number">2.</span> <span class="post-toc-text">斐波那契数列</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#递归解法"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">递归解法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#迭代解法"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">迭代解法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#矩阵解法"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">矩阵解法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#通项公式"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">通项公式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完"><span class="post-toc-number">4.</span> <span class="post-toc-text">完</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-华为面试记（三）"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">华为面试记（三）</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-17 13:54:55" datetime="2017-10-17T05:54:55.000Z"  itemprop="datePublished">2017-10-17</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p align="right"><font size="5" face="黑体"> —— 斐波那契数列 </font></p>
+
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>技术面的面试官让我手写了一个斐波那契数列。在跟面试官确认之后我用迭代的方法写了这道题。<br>（我明明记得斐波那契数列有一个通项公式的，还跟面试官问了一下这种解法，面试官竟然一脸懵逼，是考察点不是这个还是怎么的……</p>
+<p>我跟面试官征求了一下利用数组缓存数据的优化方案，面试官根本不在乎这一点优化 2333</p>
+<h2 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h2><p>题目描述：</p>
+<div>$$
+F(n)=
+    \begin{cases}
+    1 & \text{n = 1} \\
+    1 & \text{n = 2} \\
+    F(n-1)+F(n-2) & \text{n>2}
+    \end{cases}
+$$</div>
+
+<h3 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h3><p>毫无技术含量的递归解法，虽然时空效率不高，但足够简单粗暴，可以用来启发思路。</p>
+<p>面试官曾经说过，<strong>递归转迭代是必备基本技能</strong>。</p>
+<p>直接上代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> Fibonacci(n - <span class="number">1</span>) + Fibonacci(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：这里还能优化，详见 <a href="/2017/10/25/奇技淫巧之尾递归/">奇技淫巧之尾递归</a></p>
+</blockquote>
+<h3 id="迭代解法"><a href="#迭代解法" class="headerlink" title="迭代解法"></a>迭代解法</h3><p>显然，递归解法里面存在着大量不必要的重复计算，这里给出迭代解法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> ans;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> a = <span class="number">1</span>, b = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> i = <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt;= n)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = a + b;</span><br><span class="line">            b = a;</span><br><span class="line">            a = ans;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>算法时间复杂度O(n)，空间复杂度O(1)。</p>
+<h3 id="矩阵解法"><a href="#矩阵解法" class="headerlink" title="矩阵解法"></a>矩阵解法</h3><p>首先给出公式：</p>
+<div>$$ \begin{bmatrix} f(n) & f(n-1) \\ f(n-1) & f(n-2) \end{bmatrix}
+= {\begin{bmatrix} 0 & 1 \\ 1 & 1 \end{bmatrix}} ^ {n-1} $$</div>
+
+<p>证明方法很简单，数学归纳即可。</p>
+<p>至于这种想法怎么来的，方程组不都喜欢用矩阵解嘛  ╮(╯_╰)╭</p>
+<p>直接上程序，没什么可说的</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义2×2矩阵；</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Matrix2by2</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">long</span> m00, m01;</span><br><span class="line">    <span class="keyword">long</span> m10, m11;</span><br><span class="line"></span><br><span class="line">    Matrix2by2(<span class="keyword">long</span> m_00 = <span class="number">1</span>, <span class="keyword">long</span> m_01 = <span class="number">0</span>, <span class="keyword">long</span> m_10 = <span class="number">1</span>, <span class="keyword">long</span> m_11 = <span class="number">0</span>)</span><br><span class="line">        : m00(m_00), m01(m_01), m10(m_10), m11(m_11)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    Matrix2by2(<span class="keyword">const</span> Matrix2by2 &amp;mx)</span><br><span class="line">        : m00(mx.m00), m01(mx.m01), m10(mx.m10), m11(mx.m11)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Matrix2by2 <span class="title">matrixMultiply</span><span class="params">(<span class="keyword">const</span> Matrix2by2 &amp;matrix)</span></span>;</span><br><span class="line">    <span class="function">Matrix2by2 <span class="title">matrixPower</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义2×2矩阵的乘法运算</span></span><br><span class="line">Matrix2by2 Matrix2by2::matrixMultiply(<span class="keyword">const</span> Matrix2by2 &amp;matrix)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">Matrix2by2 <span class="title">product</span><span class="params">(*<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    product.m00 = <span class="keyword">this</span>-&gt;m00 * matrix.m00 + <span class="keyword">this</span>-&gt;m01 * matrix.m10;</span><br><span class="line">    product.m01 = <span class="keyword">this</span>-&gt;m00 * matrix.m01 + <span class="keyword">this</span>-&gt;m01 * matrix.m11;</span><br><span class="line">    product.m10 = <span class="keyword">this</span>-&gt;m10 * matrix.m00 + <span class="keyword">this</span>-&gt;m11 * matrix.m10;</span><br><span class="line">    product.m11 = <span class="keyword">this</span>-&gt;m10 * matrix.m01 + <span class="keyword">this</span>-&gt;m11 * matrix.m11;</span><br><span class="line">    <span class="keyword">return</span> product;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义2×2矩阵的幂运算</span></span><br><span class="line">Matrix2by2 Matrix2by2::matrixPower(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">Matrix2by2 <span class="title">matrix</span><span class="params">(<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)</span></span>; <span class="comment">// I</span></span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        matrix = Matrix2by2(*<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        matrix = <span class="keyword">this</span>-&gt;matrixPower(n / <span class="number">2</span>);</span><br><span class="line">        matrix = matrix.matrixMultiply(matrix);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        matrix = <span class="keyword">this</span>-&gt;matrixPower((n - <span class="number">1</span>) / <span class="number">2</span>);</span><br><span class="line">        matrix = matrix.matrixMultiply(matrix);</span><br><span class="line">        matrix = matrix.matrixMultiply(Matrix2by2(*<span class="keyword">this</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> matrix;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//计算Fibnacci的第n项</span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span> || n == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Matrix2by2 <span class="title">matrix</span><span class="params">(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    Matrix2by2 fibMatrix = matrix.matrixPower(n - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> fibMatrix.m00;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="通项公式"><a href="#通项公式" class="headerlink" title="通项公式"></a>通项公式</h3><p>首先给出通项公式：</p>
+<div>$$
+a_n = \frac{1}{\sqrt{5}} [ (\frac{1+\sqrt{5}}{2}) ^ n - (\frac{1-\sqrt{5}}{2}) ^ n ]
+$$<div>
+
+<p>下面给出证明。</p>
+<p>这里用到了高中学过的数列的知识：</p>
+<p>由　$a_{n+2}=a_{n+1}+a_{n}$　可得：</p>
+<p>$a_{n+2} - \frac{1-\sqrt{5}}{2}a_{n+1} = \frac{1+\sqrt{5}}{2} ( a_{n+1} - \frac{1-\sqrt{5}}{2}a_{n} )$  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; （１）</p>
+<p>$a_{n+2} - \frac{1+\sqrt{5}}{2}a_{n+1} = \frac{1-\sqrt{5}}{2} ( a_{n+1} - \frac{1+\sqrt{5}}{2}a_{n} )$  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; （２）</p>
+<p>由（１）（２）得：</p>
+<p>$a_{n+2} - \frac{1-\sqrt{5}}{2}a_{n+1} = (\frac{1+\sqrt{5}}{2})^n * A$  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; （３）</p>
+<p>$a_{n+2} - \frac{1+\sqrt{5}}{2}a_{n+1} = (\frac{1-\sqrt{5}}{2})^n * B$  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; （４）</p>
+<p>其中 Ａ、Ｂ 为待定常数，由 $a_1$、$a_2$ 确定</p>
+<p>由（３）（４）得：</p>
+<div>$$ a_{n+2} = (\frac{1-\sqrt{5}}{2})^n * C + (\frac{1+\sqrt{5}}{2})^n * D $$</div>
+
+<p>其中 C、D 为待定常数，由 $a_1$、$a_2$ 确定</p>
+<p>解得：</p>
+<div>$$ a_n = \frac{1}{\sqrt{5}} [ (\frac{1+\sqrt{5}}{2}) ^ n - (\frac{1-\sqrt{5}}{2}) ^ n ] ,  n > 2 $$</div>
+
+<p>验证一下，$a_1$、$a_2$ 也符合通项公式。</p>
+<p>当然，利用前面的矩阵也可以推算出数列的通项公式。</p>
+<p>不过通项公式很麻烦的一点是，你怎么在程序里面把 $\sqrt{5}$ 不损失精度地进行计算，因为通项公式虽然包含 $\sqrt{5}$ 但是最终值是一个确定无疑的整数。我觉得这需要一个专业的数学库来计算。</p>
+<p>更多解法可以参考知乎里面的讨论。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="http://www.cnblogs.com/python27/archive/2011/11/25/2261980.html" target="_blank" rel="noopener">【算法02】3种方法求解斐波那契数列- python27 - 博客园</a></p>
+</li>
+<li><p><a href="https://www.zhihu.com/question/25217301" target="_blank" rel="noopener">斐波那契数列通项公式是怎样推导出来的？ -知乎</a></p>
+</li>
+</ul>
+<h2 id="完"><a href="#完" class="headerlink" title="完"></a>完</h2></div></div>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-06T01:30:04.915Z" itemprop="dateUpdated">2019-09-06 09:30:04</time>
+</span><br>
+
+
+        
+        版权归作者所有，转载请注明出处 <br/><a href="/2017/10/17/华为面试记（三）/" target="_blank" rel="external">http://blogless.github.io/2017/10/17/华为面试记（三）/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://blogless.github.io">
+            <img src="/img/avatar.jpg" alt="赵恒昶">
+            赵恒昶
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/">C/C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/17/华为面试记（三）/&title=《华为面试记（三）》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/17/华为面试记（三）/&title=《华为面试记（三）》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/17/华为面试记（三）/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《华为面试记（三）》 — 博客寥寥&url=http://blogless.github.io/2017/10/17/华为面试记（三）/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/17/华为面试记（三）/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/10/18/Hexo博客插入数学公式/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Hexo博客插入数学公式</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/17/华为面试记（二）/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">华为面试记（二）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>赵恒昶 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/17/华为面试记（三）/&title=《华为面试记（三）》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/17/华为面试记（三）/&title=《华为面试记（三）》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/17/华为面试记（三）/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《华为面试记（三）》 — 博客寥寥&url=http://blogless.github.io/2017/10/17/华为面试记（三）/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/17/华为面试记（三）/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNklEQVR42u3aQY6DQAwF0dz/0oyUVRYB6ts9o8FdvYoQAR6RHLvt1wuv470+P38eOTufnJN+q7VkyJDxWMZxuQiDnH92L/7Kbr4rQ4aMDRi1IHt9PI2T16/g5voyZMiQgVPD64c48JIhQ4aMTsBNU0BSb5LgK0OGDBkk8JFgynfD0q29ZbW4DBkyHsioNQb+5vOv9zdkyJDx7xlHuGp9wzRkx08lQ4aM0Yw0yau1NjvtB17WypAhYwcGvz0vd9MkjzDQdpsMGTIGMdIUsM+4PsIDtAwZMvZh8EunJS5/3E6KGRSxMmTIeDiDhDN+JC2J06IapZ4yZMgYxOgPhKXlLh8OC8K0DBkyNmCQTbHathoPyunIxWknVoYMGUMZfNO/38isjaDdhHsZMmSMZnSKyU7YTdNH8rJkyJCxG6PTnoxbjzj4FluYMmTIGMGobY3xzTJ+pBVwZciQMZqRjk2k4ZKPkZFWaCvUypAh47EMXrKuSgEX/D+cPaEMGTKGMla1AWoNyJR08zvIkCFjHKOWFNaSyGB4orZfKEOGjNGMzkZYZ/CUj2jcNEplyJAxmhGchLfV0kGN2r1kyJCxD+MIFw/Wnao6LnFlyJAxmtGP1rUBslVNAhkyZOzDWDvsxRuctVezYLJDhgwZj2VcH09vX9uwS4P+l4ArQ4aM7RkkvPJBLsILri9DhgwZS1uS6TgFCuIyZMjYgMHDXI1RK1BbM24yZMgYxEgLSJ4Idq7QSUBlyJAxiPEDhwYi4GhEtwQAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '你快回来～';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)我回来了！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

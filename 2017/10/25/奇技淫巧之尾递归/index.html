@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>奇技淫巧之尾递归 | 博客寥寥 | 从记笔记转向写博客，就像从写私有项目转向写开源项目一样困难</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="算法,奇技淫巧">
+    <meta name="description" content="引子这几天偶然看到关于尾递归的文章，联想到之前写过的斐波那契数列，干脆就单开一篇专门写一下尾递归的事，留待以后查阅。 正文什么是尾递归尾递归是一种尾调用。所谓尾调用，望文生义就是指函数的最后一步也是一个函数调用。那么尾递归也就是函数尾调用自身。 为什么要用尾递归与一般递归相比，尾递归的效率更高，其主要原因在于： 一般递归调用时需要重新开辟函数调用栈； 尾递归调用时编译器可以自动优化，直接利用原有的">
+<meta name="keywords" content="算法,奇技淫巧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="奇技淫巧之尾递归">
+<meta property="og:url" content="http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/index.html">
+<meta property="og:site_name" content="博客寥寥">
+<meta property="og:description" content="引子这几天偶然看到关于尾递归的文章，联想到之前写过的斐波那契数列，干脆就单开一篇专门写一下尾递归的事，留待以后查阅。 正文什么是尾递归尾递归是一种尾调用。所谓尾调用，望文生义就是指函数的最后一步也是一个函数调用。那么尾递归也就是函数尾调用自身。 为什么要用尾递归与一般递归相比，尾递归的效率更高，其主要原因在于： 一般递归调用时需要重新开辟函数调用栈； 尾递归调用时编译器可以自动优化，直接利用原有的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-25T03:09:15.724Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="奇技淫巧之尾递归">
+<meta name="twitter:description" content="引子这几天偶然看到关于尾递归的文章，联想到之前写过的斐波那契数列，干脆就单开一篇专门写一下尾递归的事，留待以后查阅。 正文什么是尾递归尾递归是一种尾调用。所谓尾调用，望文生义就是指函数的最后一步也是一个函数调用。那么尾递归也就是函数尾调用自身。 为什么要用尾递归与一般递归相比，尾递归的效率更高，其主要原因在于： 一般递归调用时需要重新开辟函数调用栈； 尾递归调用时编译器可以自动优化，直接利用原有的">
+    
+        <link rel="alternate" type="application/atom+xml" title="博客寥寥" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵恒昶</h5>
+          <a href="mailto:hengchang.zhao@foxmail.com" title="hengchang.zhao@foxmail.com" class="mail">hengchang.zhao@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/blogless" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">奇技淫巧之尾递归</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">奇技淫巧之尾递归</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-25T11:50:26.000Z" itemprop="datePublished" class="page-time">
+  2017-10-25
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引子"><span class="post-toc-number">1.</span> <span class="post-toc-text">引子</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正文"><span class="post-toc-number">2.</span> <span class="post-toc-text">正文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#什么是尾递归"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">什么是尾递归</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么要用尾递归"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">为什么要用尾递归</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#尾递归的效率提升"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">尾递归的效率提升</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注意事项"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">注意事项</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完"><span class="post-toc-number">4.</span> <span class="post-toc-text">完</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-奇技淫巧之尾递归"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">奇技淫巧之尾递归</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-25 19:50:26" datetime="2017-10-25T11:50:26.000Z"  itemprop="datePublished">2017-10-25</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>这几天偶然看到关于尾递归的文章，联想到之前写过的斐波那契数列，干脆就单开一篇专门写一下尾递归的事，留待以后查阅。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="什么是尾递归"><a href="#什么是尾递归" class="headerlink" title="什么是尾递归"></a>什么是尾递归</h3><p>尾递归是一种<strong>尾调用</strong>。所谓尾调用，望文生义就是指函数的最后一步也是一个函数调用。那么尾递归也就是函数尾调用自身。</p>
+<h3 id="为什么要用尾递归"><a href="#为什么要用尾递归" class="headerlink" title="为什么要用尾递归"></a>为什么要用尾递归</h3><p>与一般递归相比，尾递归的效率更高，其主要原因在于：</p>
+<p>一般递归调用时需要重新开辟函数调用栈；</p>
+<p>尾递归调用时编译器可以自动优化，直接利用原有的栈进行调用。</p>
+<p>虽然栈的运行效率相比堆效率高很多，但减小栈的开销仍然是有意义的，尤其是在栈的开销很大的时候。</p>
+<h3 id="尾递归的效率提升"><a href="#尾递归的效率提升" class="headerlink" title="尾递归的效率提升"></a>尾递归的效率提升</h3><p>我们可以拿之前写过的斐波那契数列做实验对比一下：</p>
+<figure class="highlight c++"><figcaption><span>一般递归</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">long</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> Fibonacci(n - <span class="number">1</span>) + Fibonacci(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><figcaption><span>尾递归</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Fibonacci_tail：斐波那契数列尾递归形式</span></span><br><span class="line"><span class="comment"> * n：待求值</span></span><br><span class="line"><span class="comment"> * acc1：累计值1</span></span><br><span class="line"><span class="comment"> * acc2：累计值2</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">Fibonacci_tail</span><span class="params">(<span class="keyword">long</span> n, <span class="keyword">long</span> acc1, <span class="keyword">long</span> acc2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> acc2; <span class="comment">//acc2</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> Fibonacci_tail(n - <span class="number">1</span>, acc2, acc1 + acc2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><figcaption><span>效率对比</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">clock_t</span> t1 = clock();</span><br><span class="line">    Fibonacci(<span class="number">20</span>);</span><br><span class="line">    <span class="keyword">clock_t</span> t2 = clock();</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; t2 - t1 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">clock_t</span> t3 = clock();</span><br><span class="line">    Fibonacci_tail(<span class="number">20</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">clock_t</span> t4 = clock();</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; t4 - t3 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>运行结果</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">278</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，尾递归优化过的斐波那契数列，运行效率有质的提高。不仅仅是因为栈的利用率提高，而且栈的调用层次从原来的树形结构编程了朴素的线性结构，节约了大量的重复计算。如果从尾递归再进一步优化的话，马上就是迭代形式。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>尾递归虽然效率比一般递归效率有提高，但是理解起来的难度也更高，因此建议在彻底弄懂之后再写尾递归代码，并且加上必要的注释。或者，直接写成迭代形式，更好理解，并且效率更高。</p>
+<p>先能够写正确的代码，再写高效的代码。</p>
+<p>当然，不只是 C++ 会有尾递归优化。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2015/04/tail-call.html" target="_blank" rel="noopener">尾递归优化 - 阮一峰的网络日志</a></li>
+</ul>
+<h2 id="完"><a href="#完" class="headerlink" title="完"></a>完</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-08-25T03:09:15.724Z" itemprop="dateUpdated">2019-08-25 11:09:15</time>
+</span><br>
+
+
+        
+        版权归作者所有，转载请注明出处 <br/><a href="/2017/10/25/奇技淫巧之尾递归/" target="_blank" rel="external">http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://blogless.github.io">
+            <img src="/img/avatar.jpg" alt="赵恒昶">
+            赵恒昶
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/奇技淫巧/">奇技淫巧</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/&title=《奇技淫巧之尾递归》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/&title=《奇技淫巧之尾递归》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《奇技淫巧之尾递归》 — 博客寥寥&url=http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/10/26/你应该避免的C-糟粕/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">你应该避免的C++糟粕</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/25/C-中的骚操作/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">C++中的骚操作</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>赵恒昶 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/&title=《奇技淫巧之尾递归》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/&title=《奇技淫巧之尾递归》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《奇技淫巧之尾递归》 — 博客寥寥&url=http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/25/奇技淫巧之尾递归/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3awY7DIAyE4bz/S2elPVWqIDNjb7U1P6eqTQMfB8tgX5c87t/x+vn1m/0z70/uZ9GftwcMGDC+lnFvx/sSV4te/eoudL8dyzfAgAHjAIb7utWy6kF2v0HL72HAgAHDDKlZ/qYEehgwYMCopGh62IUBAwaMjKG8zl20mzLu5207i8OAAeMLGVlh4DOf/7y+AQMGjH/PuM2R1Q3d0oK9KhgwYIxm1AuQXeljlpJe+j7BgAFjBMO96Fcmdt+sF0QfzuIwYMAYxMgSO73ZIruSc5szYMCAMZuhBL7siNu1EcbFHAwYMI5hdDVPhEEzaiyDAQPGbEZvSqcfSpUZlcQRBgwY5zCUY6TOy0oO7oF2WYmFAQPGUIYeCt1Dphua3aAMAwaMExi9yZ8O04OscaiGAQPGAYysCSxrznALlmEJEwYMGCMYbuHQLWfW000p4MKAAWM0w03ysjJAvTlDv+CDAQPGPIZ+gHQnUNI+fRMfVgIDBozRDH1xyjRhAdJsTXt4PwwYMMYx9HRNxzQ0T7ghGwYMGAcwdKR+HVZJMd2rOhgwYMxm6A+54bI5pCorgQEDxlBGpTBZbxpz/7UMyjBgwBjNyMJcdg3XmyDCgAHjNIbb4JWlfS7M3nsYMGAcwNCDbOV+3v2XHpphwIABw23VqrSOZeVSGDBgwNDTPjdZ1Lfg4UkYMGAcwKg3qnYF5YwKAwaM2YysMFBZUAZ2D9UwYMAYwfgBLX36CEL31tIAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '你快回来～';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)我回来了！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>或与加 | 博客寥寥 | 从记笔记转向写博客，就像从写私有项目转向写开源项目一样困难</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="编程,数学">
+    <meta name="description" content="在 牛客网 上看到的一道题目，感觉有点意思，在这里做个记录。 题目给定 x, k ，求满足 x + y = x | y 的第 k 小的正整数 y 。 | 是二进制的或(or)运算，例如 3 | 5 = 7。比如当 x=5，k=1时返回 2，因为5+1=6 不等于 5|1=5，而 5+2=7 等于 5 | 2 = 7。 输入描述:  每组测试用例仅包含一组数据，每组数据为两个正整数 x , k。 满">
+<meta name="keywords" content="编程,数学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="或与加">
+<meta property="og:url" content="http://blogless.github.io/2017/10/21/或与加/index.html">
+<meta property="og:site_name" content="博客寥寥">
+<meta property="og:description" content="在 牛客网 上看到的一道题目，感觉有点意思，在这里做个记录。 题目给定 x, k ，求满足 x + y = x | y 的第 k 小的正整数 y 。 | 是二进制的或(or)运算，例如 3 | 5 = 7。比如当 x=5，k=1时返回 2，因为5+1=6 不等于 5|1=5，而 5+2=7 等于 5 | 2 = 7。 输入描述:  每组测试用例仅包含一组数据，每组数据为两个正整数 x , k。 满">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-06T01:32:50.122Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="或与加">
+<meta name="twitter:description" content="在 牛客网 上看到的一道题目，感觉有点意思，在这里做个记录。 题目给定 x, k ，求满足 x + y = x | y 的第 k 小的正整数 y 。 | 是二进制的或(or)运算，例如 3 | 5 = 7。比如当 x=5，k=1时返回 2，因为5+1=6 不等于 5|1=5，而 5+2=7 等于 5 | 2 = 7。 输入描述:  每组测试用例仅包含一组数据，每组数据为两个正整数 x , k。 满">
+    
+        <link rel="alternate" type="application/atom+xml" title="博客寥寥" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵恒昶</h5>
+          <a href="mailto:hengchang.zhao@foxmail.com" title="hengchang.zhao@foxmail.com" class="mail">hengchang.zhao@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/blogless" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">或与加</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">或与加</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-21T11:18:40.000Z" itemprop="datePublished" class="page-time">
+  2017-10-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/programming/">编程</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目"><span class="post-toc-number">1.</span> <span class="post-toc-text">题目</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#思路"><span class="post-toc-number">2.</span> <span class="post-toc-text">思路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解答"><span class="post-toc-number">3.</span> <span class="post-toc-text">解答</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#感想"><span class="post-toc-number">4.</span> <span class="post-toc-text">感想</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完"><span class="post-toc-number">5.</span> <span class="post-toc-text">完</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-或与加"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">或与加</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-21 19:18:40" datetime="2017-10-21T11:18:40.000Z"  itemprop="datePublished">2017-10-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/programming/">编程</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>在 <a href="https://www.nowcoder.com/questionTerminal/729f5e6e2acc4f3cb14a2262888f86fb" target="_blank" rel="noopener">牛客网</a> 上看到的一道题目，感觉有点意思，在这里做个记录。</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定 x, k ，求满足 x + y = x | y 的第 k 小的正整数 y 。 | 是二进制的或(or)运算，例如 3 | 5 = 7。<br>比如当 x=5，k=1时返回 2，因为5+1=6 不等于 5|1=5，而 5+2=7 等于 5 | 2 = 7。</p>
+<p>输入描述:</p>
+<blockquote>
+<p>每组测试用例仅包含一组数据，每组数据为两个正整数 x , k。 满足 0 &lt; x , k ≤ 2,000,000,000。</p>
+</blockquote>
+<p>输出描述:</p>
+<blockquote>
+<p>输出一个数y。</p>
+</blockquote>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>第一反应是暴力，但是会超时，没关系，先看看在暴力的基础上能不能进行优化。</p>
+<p>这里会用到一些数学知识，观察 <code>x + y = x | y</code> 之后我们可以得出以下结论：</p>
+<ol>
+<li>x + y 的长度只能是 x、y 之中的最大长度，因为 x | y 长度为 x、y 之中的最大长度；</li>
+<li>在任意 bit 位上，x、y 不能同时取 1。</li>
+</ol>
+<p>第二个结论很有意思，也是这道题的关键。在这之前我们先看一道简单题：</p>
+<p><a href="https://leetcode.com/problems/sum-of-two-integers/description/" target="_blank" rel="noopener">371. Sum of Two Integers</a></p>
+<blockquote>
+<p>Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.</p>
+</blockquote>
+<p>其实就是自己设计一个加法器，这里直接给出一种答案：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t1 = a ^ b;</span><br><span class="line">    <span class="keyword">int</span> t2 = (a &amp; b) &lt;&lt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> (t2 == <span class="number">0</span>) ? t1 : add(t1, t2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意看程序，如果 x、y 在任意 bit 位不同时取 1 的时候，t2 是不是就已经是 0 了？</p>
+<p>在这这种情况下，我们有</p>
+<div>$$ add(a, b) == t1 == a ^ b == a | b $$</div>
+
+<p>是不是很神奇？</p>
+<p>可以自己简单证明一下，到底 <code>x + y = x | y</code> 是不是 <code>x、y 在任意 bit 位不同时取 1</code> 的充要条件。</p>
+<p>有了以上结论之后，在给定 x 的情况下，求 y 能取到的值，有什么好办法了吗？</p>
+<h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><p>由之前的思考，我们可以得出结论，只需要抽取 x 取值为 0 的位进行取值遍历就能取出所有满足条件的 y：</p>
+<div>$$
+y(i)=
+    \begin{cases}
+    0 & \text{x(i) = 1} \\
+    0,1 & \text{x(i) = 0}
+    \end{cases}
+$$</div>
+
+<p>这里要取的是 第 k 个满足条件的数，那么把 k 的二进制表示拆出来填充进所有 x(i)=0 的位，工作也就完成了。</p>
+<p>贴一份讨论区里面别人注释过的代码（这里我对代码和注释进行了一些修改）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> x, k;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; k;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> bitNum = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 目标是把 k 的各位依次填在 x 中是 0 的位上。</span></span><br><span class="line">    <span class="comment">// bitNum 用来移动到 x 中 0 的位置，然后把 k 的最低位放在 x 的 0 位上,</span></span><br><span class="line">    <span class="comment">// k 左移，将下一位变成最低位,bitNum 一直左移到 x 中的下一个为 0 的位上</span></span><br><span class="line">    <span class="keyword">while</span> (k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ((x &amp; bitNum) == <span class="number">0</span>) <span class="comment">// x 中 bitNum 为 0 的位,用来填充k的位</span></span><br><span class="line">        &#123;</span><br><span class="line">            ans |= (bitNum * (k &amp; <span class="number">1</span>)); <span class="comment">// 将 k 的最低位取出来,放到在 x 的 bitNum 位上</span></span><br><span class="line">            k &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        bitNum &lt;&lt;= <span class="number">1</span>; <span class="comment">// bitNum 左移直到 x 中的 0 位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>结合了数学的程序还是酸爽啊～</p>
+<h2 id="完"><a href="#完" class="headerlink" title="完"></a>完</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-06T01:32:50.122Z" itemprop="dateUpdated">2019-09-06 09:32:50</time>
+</span><br>
+
+
+        
+        版权归作者所有，转载请注明出处 <br/><a href="/2017/10/21/或与加/" target="_blank" rel="external">http://blogless.github.io/2017/10/21/或与加/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://blogless.github.io">
+            <img src="/img/avatar.jpg" alt="赵恒昶">
+            赵恒昶
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程/">编程</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/21/或与加/&title=《或与加》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/21/或与加/&title=《或与加》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/21/或与加/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《或与加》 — 博客寥寥&url=http://blogless.github.io/2017/10/21/或与加/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/21/或与加/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/10/25/C-中的骚操作/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">C++中的骚操作</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/20/华为笔试题/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">华为笔试题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>赵恒昶 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/21/或与加/&title=《或与加》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/21/或与加/&title=《或与加》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/21/或与加/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《或与加》 — 博客寥寥&url=http://blogless.github.io/2017/10/21/或与加/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/21/或与加/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3aQYrkMAwF0Lr/pWtgVrOJ+ZJSA1GeV00oEj83CEnW5xOv79919fzfdX5+fuf59zcsDAyMxzK+x5Uwzn8n4PM7z3vDwMB4DyPZYh4KkyPoHcflcwwMDIw4CJ7x1eCOgYGBMQm4efKXpKH5VzAwMN7MyD9wtdFzCpgg/1MtjoGB8UDGpCj99d8/vN/AwMB4CONbXHlpOmnelXeFgYGxmpFcIs5HLs5bv6usxcDA2M34Rcu+V2omjOh/goGBsY6RF5Z3tf7nKSYGBsbbGHnqVs3H5hei5cYcBgbGOsavt947oPwIMDAw3sDoDTrkDbvqAEd+dVroIGJgYDycMe/STUJ29RAv34+BgbGa0dtifs2ZH1O1AYeBgfEexmisoThmkSeRedMNAwMDY97Ev2v8opAUYmBgvJJRLVl74xT5k2bAxcDAeCyjHNqKYbQKvqGFh4GBsY4xabRNguOoO3h1hYmBgbGUMY9a0QRHa+vVth0GBsZWRrUpPy87q8hCTw4DA2M1Ix/Mmg+HVdPHaCcYGBirGdUbwElTLHnSi64YGBi7Gd/iqn6+Wqb2ElYMDIzdjF6YSz48adL10kcMDIzdjEmQnf++N5DxyV+NgYGxiJGXrNWQOrkWLZTBGBgYGIORr15Tr3xwGBgYGMW0rzdOUb1UuC3gYmBgPISRFLG9QDk/muiwMDAwVjNGkxrjq8e86ZYnlxgYGIsYfwBsAmqYBnzgdgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '你快回来～';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)我回来了！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>一行脚本搭建局域网服务器 | 博客寥寥 | 从记笔记转向写博客，就像从写私有项目转向写开源项目一样困难</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python,服务器">
+    <meta name="description" content="动机 在电脑上安装的 QQ、微信，一个很重要的功能就是文件传输。当我们需要在电脑和手机之间传输文件的时候，用这种即时通讯工具来传输的做法可谓是深入人心。但是，QQ、微信传输文件也有一些局限性，比如”文件过大无法传输“、”上传下载速度太慢“这些（差点忘了，还可以通过邮件附件传送文件，这种也有大小限制）。对于文件过大，很多人的第一反应是换用百度网盘，先上传云盘然后发送云盘链接，那么很快他们就会遇到第二">
+<meta name="keywords" content="Python,服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一行脚本搭建局域网服务器">
+<meta property="og:url" content="http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/index.html">
+<meta property="og:site_name" content="博客寥寥">
+<meta property="og:description" content="动机 在电脑上安装的 QQ、微信，一个很重要的功能就是文件传输。当我们需要在电脑和手机之间传输文件的时候，用这种即时通讯工具来传输的做法可谓是深入人心。但是，QQ、微信传输文件也有一些局限性，比如”文件过大无法传输“、”上传下载速度太慢“这些（差点忘了，还可以通过邮件附件传送文件，这种也有大小限制）。对于文件过大，很多人的第一反应是换用百度网盘，先上传云盘然后发送云盘链接，那么很快他们就会遇到第二">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-25T03:09:15.696Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一行脚本搭建局域网服务器">
+<meta name="twitter:description" content="动机 在电脑上安装的 QQ、微信，一个很重要的功能就是文件传输。当我们需要在电脑和手机之间传输文件的时候，用这种即时通讯工具来传输的做法可谓是深入人心。但是，QQ、微信传输文件也有一些局限性，比如”文件过大无法传输“、”上传下载速度太慢“这些（差点忘了，还可以通过邮件附件传送文件，这种也有大小限制）。对于文件过大，很多人的第一反应是换用百度网盘，先上传云盘然后发送云盘链接，那么很快他们就会遇到第二">
+    
+        <link rel="alternate" type="application/atom+xml" title="博客寥寥" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵恒昶</h5>
+          <a href="mailto:hengchang.zhao@foxmail.com" title="hengchang.zhao@foxmail.com" class="mail">hengchang.zhao@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/blogless" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">一行脚本搭建局域网服务器</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">一行脚本搭建局域网服务器</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-06T01:32:22.000Z" itemprop="datePublished" class="page-time">
+  2017-10-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/tools/">实用工具</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动机"><span class="post-toc-number">1.</span> <span class="post-toc-text">动机</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正文"><span class="post-toc-number">2.</span> <span class="post-toc-text">正文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-python"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">安装 python</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一行命令开启服务器"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">一行命令开启服务器</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#补充说明"><span class="post-toc-number">3.</span> <span class="post-toc-text">补充说明</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#感想"><span class="post-toc-number">4.</span> <span class="post-toc-text">感想</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#干货"><span class="post-toc-number">5.</span> <span class="post-toc-text">干货</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#友善度"><span class="post-toc-number">6.</span> <span class="post-toc-text">友善度</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完"><span class="post-toc-number">7.</span> <span class="post-toc-text">完</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-一行脚本搭建局域网服务器"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">一行脚本搭建局域网服务器</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-06 09:32:22" datetime="2017-10-06T01:32:22.000Z"  itemprop="datePublished">2017-10-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/tools/">实用工具</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><blockquote>
+<p>在电脑上安装的 QQ、微信，一个很重要的功能就是文件传输。当我们需要在电脑和手机之间传输文件的时候，用这种即时通讯工具来传输的做法可谓是深入人心。但是，QQ、微信传输文件也有一些局限性，比如”文件过大无法传输“、”上传下载速度太慢“这些（差点忘了，还可以通过邮件附件传送文件，这种也有大小限制）。对于文件过大，很多人的第一反应是换用百度网盘，先上传云盘然后发送云盘链接，那么很快他们就会遇到第二个问题了（笑）。百度网盘现在是限速的，尽管总有很多奇技淫巧可以绕过这个限制，但是对于伸手党（此处无贬义）来讲，还是太麻烦了。这里，我们借助 Python 提供的工具，来打破文件传输困局。</p>
+</blockquote>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>首先需要说明的是，我们这里搭建的是 <strong>局域网http服务器</strong>，只能用于同一局域网内部的文件传输。也就是说，你的电脑和手机要连入同一个路由器。有人组建路由器网络的话，能不能用？我不知道，我相信会组建路由器网络的人自己就能弄明白这个问题的（试了一下，好像不能）。</p>
+<p>Windows 用户需要两步：安装 python 和 打开服务器。<br>Linux 用户和 macOS 用户请直接进入第二步。</p>
+<h3 id="安装-python"><a href="#安装-python" class="headerlink" title="安装 python"></a>安装 python</h3><p>点击进入<a href="https://www.python.org/downloads/" target="_blank" rel="noopener">官网</a>，选择下载 python 2.x 或者 python 3.x 的版本都可以，我在下文分别对其做了说明。下载完成后，一路下一步完成安装。哦，对，还得记下来你的安装路径，然后添加到环境变量里才行（摔！</p>
+<p>Linux 和 macOS 是自带 python 2.x 运行环境的，如果你是开发人员的话，你可能还装有 python 3.x 版本。</p>
+<h3 id="一行命令开启服务器"><a href="#一行命令开启服务器" class="headerlink" title="一行命令开启服务器"></a>一行命令开启服务器</h3><p>（终于进入正题了）<br>进入需要分享的文件所在目录，然后</p>
+<ul>
+<li>Windows 用户：右键打开 cmd / Powershell / git bash，（随便挑一个，有哪个用哪个）</li>
+<li>Linux / macOS 用户：右键打开 terminal</li>
+</ul>
+<p>输入 Python 命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python2 的用法：</span></span><br><span class="line">$ python -m SimpleHTTPServer &lt;port&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 的用法：</span></span><br><span class="line">$ python3 -m http.server &lt;port&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其中 port 可以不用填写，默认是 8000。</p>
+<p>在本机访问 <a href="http://localhost:8000" target="_blank" rel="noopener">http://localhost:8000</a> ， 会列出该目录下的所有文件；</p>
+<p>查看 “服务器”(当前电脑) 在局域网的 ip 地址：</p>
+<ul>
+<li>Windows 命令是 ipconfig</li>
+<li>Linux 命令是 ifconfig</li>
+</ul>
+<p>从所给地址中找到当前无线网地址，假设是 192.168.1.3 ，</p>
+<p>在“客户端”（手机浏览器）输入 <code>http://ip:port</code> （比如 192.168.1.3:8000）即可访问“服务器”目录下的文件；</p>
+<p>注意，如果目录下有 index.html 文件的话，则显示的不是文件列表而是 index.html 的内容。</p>
+<h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>当然，传输文件的方法太多了，不一定要用这种。其他的一些，比如有的邮箱会有【文件中转站】【网络硬盘】这些附加功能，可以用来传输文件；微软有个 OneDrive 也可以存文件；通过 手机安装 ES文件管理器，或者 AirDroid 这些软件，也都可以传输文件。</p>
+<p>那么，这种搭建局域网服务器的优势是什么呢？</p>
+<ul>
+<li>没有账户登录的操作，</li>
+<li>省去了上传这一步，</li>
+<li>不用安装任何软件（骗人，明明需要安装python</li>
+</ul>
+<p>当然，这种方案也有劣势：</p>
+<ul>
+<li>很多人根本不会操作命令行，</li>
+<li>不知道环境变量是什么东西，</li>
+<li>没有遇到问题随手搜索的习惯。</li>
+</ul>
+<h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>Windows 小白用户看看热闹就好。</p>
+<h2 id="干货"><a href="#干货" class="headerlink" title="干货"></a>干货</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python2 的用法：</span></span><br><span class="line">$ python -m SimpleHTTPServer &lt;port&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># python3 的用法：</span></span><br><span class="line">$ python3 -m http.server &lt;port&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Windows 命令查看局域网地址</span></span><br><span class="line">$ ipconfig</span><br><span class="line"></span><br><span class="line"><span class="comment"># Linux 命令查看局域网地址</span></span><br><span class="line">$ ifconfig</span><br></pre></td></tr></table></figure>
+
+<h2 id="友善度"><a href="#友善度" class="headerlink" title="友善度"></a>友善度</h2><p>不管你能不能用，反正我是能用的（deepin 15.4.1 + Win7）</p>
+<h2 id="完"><a href="#完" class="headerlink" title="完"></a>完</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-08-25T03:09:15.696Z" itemprop="dateUpdated">2019-08-25 11:09:15</time>
+</span><br>
+
+
+        
+        版权归作者所有，转载请注明出处 <br/><a href="/2017/10/06/一行脚本搭建局域网服务器/" target="_blank" rel="external">http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://blogless.github.io">
+            <img src="/img/avatar.jpg" alt="赵恒昶">
+            赵恒昶
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器/">服务器</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/&title=《一行脚本搭建局域网服务器》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/&title=《一行脚本搭建局域网服务器》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《一行脚本搭建局域网服务器》 — 博客寥寥&url=http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/10/17/华为面试记（一）/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">华为面试记（一）</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/05/Mysql常用操作/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Mysql常用操作</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>赵恒昶 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/&title=《一行脚本搭建局域网服务器》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/&title=《一行脚本搭建局域网服务器》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《一行脚本搭建局域网服务器》 — 博客寥寥&url=http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/06/一行脚本搭建局域网服务器/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACs0lEQVR42u3aQW4jMQwEQP//07vAXgNPukkp8QI1p8CxNVMyINIkX6/4+vPv+vpKciXv/3qX5/8evvDw8PBGj97eOMEnD52v0G4WHh4e3m3eczD4Zol4neeHe/eeZIvfvo6Hh4f3q7z84G7z2/xTeHh4eP8Xrz2+k/XzFfDw8PA+jZcXYdukeRMeNkVhPDw8vHu8tgH2CX9f7O/h4eHhLbrqeZCYrdNuYn0XPDw8vAu8WfmgLfW2r+cNsChs4OHh4R3lteNQeXhoHzHfpuIueHh4eJd57YGeJ8dJKaFtpCUJNx4eHt4N3qy5tS8l5Ju1KYLg4eHh3eDNbpYkyrNgsGnIFcUIPDw8vAWvPXDb9HoWVM4ON+Dh4eGd5eUHep2nlwEgL9HW3xseHh7eUd6s/T8bEcjHufYr4+Hh4d3j5aXV/OHyUYP8U8O0Gw8PD+8CLzmOk2Gs2Wc3zbAiZcfDw8M7yps9+uyWeaGh3Zoi7uHh4eGtee3P+6S82zb727R+2E7Dw8PDu8bbpMubEatZgSNPx/Hw8PBO8TYDAfkjnhrGysvEb4eu8PDw8A7x8iGnPL3Oy7V5w6xdDQ8PD+8eb1PqnRVn26N/OKCAh4eHd5m3ObI3o11tIaMoLuPh4eFd5rWDU5vUedboqttveHh4eD/Ia9tXm3bXq7yKIQM8PDy8C7yk9dUGj6JBtS71RhuHh4eHd5S3L8Xuhw+eV5sFjGOVZjw8PLyAtznu24O+TbuTL+ObwICHh4e35u1LAHl4yAvHm7CBh4eH9zO8WTDYl3HbFHkYGPDw8PCu8dpgkMeZPO1+ZsxGsvDw8PB+lzcr1yaJdV7qrVNtPDw8vI/htaWE/ChvE+4rgQEPDw/vUDEiSayTTUmCyqnCMR4eHt4N3qYB1qbXbao9KwHXFx4eHl7K+wuUYiIWfw3itwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '你快回来～';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)我回来了！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

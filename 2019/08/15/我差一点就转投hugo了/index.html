@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>我差一点就转投hugo了 | 博客寥寥 | 从记笔记转向写博客，就像从写私有项目转向写开源项目一样困难</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="博客,随笔">
+    <meta name="description" content="博客系统迁移：从hexo到hugo电脑重装系统，想起来自己的博客，重装node和hexo之后发现原来的博客无法生成了，看起来是某些依赖版本对不上了，真是令人头大，重新搜索了一下 Static Site Generator，发现了 hugo 这个好东西，决定尝试一下。相比hexo，hugo提供二进制安装，没有依赖，而且速度非常快，令人心旷神怡。如果说有什么缺点的话，那就是hugo主题明显没有hexo">
+<meta name="keywords" content="博客,随笔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我差一点就转投hugo了">
+<meta property="og:url" content="http://blogless.github.io/2019/08/15/我差一点就转投hugo了/index.html">
+<meta property="og:site_name" content="博客寥寥">
+<meta property="og:description" content="博客系统迁移：从hexo到hugo电脑重装系统，想起来自己的博客，重装node和hexo之后发现原来的博客无法生成了，看起来是某些依赖版本对不上了，真是令人头大，重新搜索了一下 Static Site Generator，发现了 hugo 这个好东西，决定尝试一下。相比hexo，hugo提供二进制安装，没有依赖，而且速度非常快，令人心旷神怡。如果说有什么缺点的话，那就是hugo主题明显没有hexo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-06T01:58:01.252Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我差一点就转投hugo了">
+<meta name="twitter:description" content="博客系统迁移：从hexo到hugo电脑重装系统，想起来自己的博客，重装node和hexo之后发现原来的博客无法生成了，看起来是某些依赖版本对不上了，真是令人头大，重新搜索了一下 Static Site Generator，发现了 hugo 这个好东西，决定尝试一下。相比hexo，hugo提供二进制安装，没有依赖，而且速度非常快，令人心旷神怡。如果说有什么缺点的话，那就是hugo主题明显没有hexo">
+    
+        <link rel="alternate" type="application/atom+xml" title="博客寥寥" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵恒昶</h5>
+          <a href="mailto:hengchang.zhao@foxmail.com" title="hengchang.zhao@foxmail.com" class="mail">hengchang.zhao@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/blogless" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">我差一点就转投hugo了</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">我差一点就转投hugo了</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-08-15T12:57:04.000Z" itemprop="datePublished" class="page-time">
+  2019-08-15
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/other/">随笔</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#博客系统迁移：从hexo到hugo"><span class="post-toc-number">1.</span> <span class="post-toc-text">博客系统迁移：从hexo到hugo</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装hugo"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装hugo</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建博客仓库"><span class="post-toc-number">3.</span> <span class="post-toc-text">创建博客仓库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装主题"><span class="post-toc-number">4.</span> <span class="post-toc-text">安装主题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#加入-mathjax-公式支持"><span class="post-toc-number">5.</span> <span class="post-toc-text">加入 mathjax 公式支持</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决-markdown-与-mathjax-冲突问题"><span class="post-toc-number">6.</span> <span class="post-toc-text">解决 markdown 与 mathjax 冲突问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#favicon"><span class="post-toc-number">7.</span> <span class="post-toc-text">favicon</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#迁移"><span class="post-toc-number">8.</span> <span class="post-toc-text">迁移</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TODO"><span class="post-toc-number">9.</span> <span class="post-toc-text">TODO</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更好的主题选择"><span class="post-toc-number">10.</span> <span class="post-toc-text">更好的主题选择</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#打退堂鼓了"><span class="post-toc-number">11.</span> <span class="post-toc-text">打退堂鼓了</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-我差一点就转投hugo了"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">我差一点就转投hugo了</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-08-15 20:57:04" datetime="2019-08-15T12:57:04.000Z"  itemprop="datePublished">2019-08-15</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/other/">随笔</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="博客系统迁移：从hexo到hugo"><a href="#博客系统迁移：从hexo到hugo" class="headerlink" title="博客系统迁移：从hexo到hugo"></a>博客系统迁移：从hexo到hugo</h2><p>电脑重装系统，想起来自己的博客，重装node和hexo之后发现原来的博客无法生成了，看起来是某些依赖版本对不上了，真是令人头大，重新搜索了一下 <code>Static Site Generator</code>，发现了 hugo 这个好东西，决定尝试一下。<br>相比hexo，hugo提供二进制安装，没有依赖，而且速度非常快，令人心旷神怡。如果说有什么缺点的话，那就是hugo主题明显没有hexo精良。</p>
+<h2 id="安装hugo"><a href="#安装hugo" class="headerlink" title="安装hugo"></a>安装hugo</h2><p>hugo是用go语言开发的，由大名鼎鼎的<a href="https://github.com/spf13" target="_blank" rel="noopener">spf13</a>发起，安装也很简单，可以<a href="https://gohugo.io/getting-started/installing/#source" target="_blank" rel="noopener">源码安装</a>，可以<a href="https://gohugo.io/getting-started/installing/#debian-and-ubuntu" target="_blank" rel="noopener">apt安装</a>，也可以<a href="https://gohugo.io/getting-started/installing/#snap-package" target="_blank" rel="noopener">snap安装</a>。这里我使用snap安装最新版hugo：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ snap install hugo --channel=extended</span><br></pre></td></tr></table></figure>
+
+<p>验证安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hugo version</span><br></pre></td></tr></table></figure>
+
+<p>使用snap安装而不是apt的原因是，snap安装的版本比apt新，可以分别通过<code>snap info hugo</code>和<code>apt show hugo</code>查看二者提供的版本信息。</p>
+<h2 id="创建博客仓库"><a href="#创建博客仓库" class="headerlink" title="创建博客仓库"></a>创建博客仓库</h2><p>创建生成博客仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hugo new site blog</span><br></pre></td></tr></table></figure>
+
+<p>使用 git 管理项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+
+<p>在 github 上创建一个同名空仓库，之后把本地仓库和远程仓库联系起来：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先是本地仓库联系远程仓库</span></span><br><span class="line">$ git remote add origin git@github.com:&lt;your-name&gt;/blog.git</span><br><span class="line"><span class="comment"># 其次是本地分支联系远程分支，记不住没关系，直接`git pull`会提醒你如何设置的</span></span><br><span class="line">$ git branch --<span class="built_in">set</span>-upstream-to=origin/master master</span><br></pre></td></tr></table></figure>
+
+<p>最后，把本地仓库同步到远程仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 然后更新本地的origin</span></span><br><span class="line">$ git fetch</span><br><span class="line"><span class="comment"># 本地同步远程，要求远程仓库为空是为了避免冲突</span></span><br><span class="line">$ git rebase -i origin/master</span><br></pre></td></tr></table></figure>
+
+<p>如果有多个git用户，从而不想设置全局git用户，而是每个仓库单独设置的话，你可能需要在<code>git init</code>之后先输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.name <span class="string">"&lt;your-name&gt;"</span></span><br><span class="line">$ git config user.email <span class="string">"&lt;your-email&gt;"</span></span><br></pre></td></tr></table></figure>
+
+<p>其实就是省略了 <code>--global</code> 参数</p>
+<h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>之前的Hexo博客使用的是indigo主题，这里我想保持迁移前后博客风格一致，以后有需要再修改博客主题，所幸我在<a href="https://github.com/gohugoio/hugoThemes" target="_blank" rel="noopener">hugo themes</a> 找到了最为接近的<a href="https://github.com/pdevty/polymer" target="_blank" rel="noopener">polymer</a>，安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span>  https://github.com/pdevty/polymer.git themes/polymer</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git submodule add https://github.com/pdevty/polymer.git themes/polymer</span><br></pre></td></tr></table></figure>
+
+<p>阅读polymer源码可以发现，左侧栏需要的图标来自 <a href="https://github.com/PolymerElements/iron-icons/blob/master/iron-icons.js" target="_blank" rel="noopener">PolymerElements</a>，后面添加的<code>about</code>和<code>archives</code>都需要从这里选取图标。</p>
+<h2 id="加入-mathjax-公式支持"><a href="#加入-mathjax-公式支持" class="headerlink" title="加入 mathjax 公式支持"></a>加入 mathjax 公式支持</h2><p>为保证所有文件都加入Latex公式支持，最好的办法是用一个模板把这个js库引入footer，比如写入到 layouts/partials/footer.html，具体来讲就是把 当前theme下的footer.html 复制到根目录下的layout里，然后添加：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>参考 <a href="https://www.gohugo.org/doc/tutorials/mathjax/" target="_blank" rel="noopener">https://www.gohugo.org/doc/tutorials/mathjax/</a><br>Mathjax参数<code>?config=TeX-AMS-MML_HTMLorMML</code>是告诉MathJax，我们要用到的叫TeX-AMS-MML_HTMLorMML.js的配置文件，其用来控制显示数学公式的HTMl显示输出</p>
+<!-- 可以在文章那个开头加入 `markup: mmark` 来切换引擎，hugo默认提供Blackfriday和mmark，默认使用 Blackfriday 来调用mathjax -->
+
+<p>提速，一是切换到国内的cdn，这里使用的是 <a href="https://www.bootcdn.cn/" target="_blank" rel="noopener">BootCDN</a>,Bootstrap中文网提供的CDN服务，选择它的原因是新浪快但是没有资源，百度阿里网站找不到，头条资源很丰富但官网卡死……<br>    <script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></p>
+<p>二是<br>按需加载，只有在文章开头加上<code>math: true</code>时才加载mathjax：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;if .Params.math &#125;&#125;</span><br><span class="line">    <span class="comment">&lt;!-- &lt;script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"&gt;&lt;/script&gt; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;&#123;end&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解决-markdown-与-mathjax-冲突问题"><a href="#解决-markdown-与-mathjax-冲突问题" class="headerlink" title="解决 markdown 与 mathjax 冲突问题"></a>解决 markdown 与 mathjax 冲突问题</h2><p>具体来讲就是 latex的换行语法 <code>\\</code> 在markdown会被理解为转义，下标<code>_</code>会被markdown当作强调。<br>修改公式让mathjax适应markdown是不可能的，必须让markdown向mathjax低头，也就是想办法不让markdown解析公式。以后宗办法是使用markdown的代码块（反引号），但是这样有个问题就是代码块有自己的样式，会比较混乱。更好的解决办法是引入html标签，把公式用 <code>&lt;div&gt;&lt;/div&gt;</code> 或者 <code>&lt;p&gt;&lt;/p&gt;</code> 包起来，这样markdown就不会去解析这里面的内容了。</p>
+<h2 id="favicon"><a href="#favicon" class="headerlink" title="favicon"></a>favicon</h2><p>浏览器检测发现有一个资源404，原因是拿不到favicon.ico，也就是浏览器标签栏上 title 左侧的那个小图片，这里我们要做的是自己制作一个favicon。首先我找到了一个制作favicon的网站<code>https://tool.lu/favicon/</code>，然后把博客头像上传，制作后下载到本地static根目录下（注意不能是static/img下），再次刷新网页，favicon已经有了。</p>
+<p>##</p>
+<p>创建一个 about 页面：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hugo new about.md</span><br></pre></td></tr></table></figure>
+
+<p>创建第一篇文章，放到 post 目录，方便之后生成聚合页面。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hugo new post/first.md</span><br></pre></td></tr></table></figure>
+
+<p>永久连接 用 title 比用 filename 好</p>
+<h2 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h2><ol>
+<li>hexo中markdown博文中metadata中的categories可以不用加<code>[]</code>，但是hugo严格要求加上，与tags保持一致。</li>
+<li>左侧几项都应该是single.html (?) 原来hexo里面的categories应该删掉，不然会阻止正常目录功能（或者应该正确组织来定制自己的目录格式？？）同时，tags也可以删掉，about可以拿出来而不用放入单独的文件夹。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 待Archive功能完成后加入到 layouts/partials/header.html --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&#123;&#123;$baseurl&#125;&#125;/archives/</span>&gt;</span><span class="tag">&lt;<span class="name">paper-item</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"archive"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span>　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"flex"</span>&gt;</span>Archives<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"chevron-right"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">paper-item</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>把博文文件夹从 _posts 改名为 post 以使用永久连接匹配的post</li>
+<li>_drafts 文件夹不能表示文件是草稿了，要在每个草稿文件头部 加入 <code>draft:true</code> 才行了。</li>
+<li>图片不能放在博文目录下了，要放到static/img下去</li>
+</ol>
+<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
+<li>添加 archive、about</li>
+<li>添加 copyright &amp; license</li>
+<li>添加 subtitle</li>
+<li>添加 description</li>
+<li>添加 highlight</li>
+<li>添加 评论系统</li>
+<li>添加 TOC (table of content)</li>
+<li>添加 回到顶部</li>
+<li>上一篇/下一篇 图标处 添加文章名称</li>
+<li>about 单页去除 上一篇/下一篇</li>
+</ul>
+<p>123hurray 最先fork，有个bugfix，6提交<br>stephen-marshall-moore 44提交，质量很高<br>tonychee7000  111提交，都是灌水</p>
+<h2 id="更好的主题选择"><a href="#更好的主题选择" class="headerlink" title="更好的主题选择"></a>更好的主题选择</h2><p>功能全，持续更新，编译后网页速度快</p>
+<p><a href="https://github.com/rujews/maupassant-hugo" target="_blank" rel="noopener">飞雪无情的theme</a>，比较不符合我的审美，但是功能齐全，持续更新</p>
+<p>但是这个功能也不全：</p>
+<ul>
+<li>Toc 需要在每篇文章手动开启</li>
+<li>只有see also， 没有上一篇/下一篇</li>
+<li>据说 see also 只显示发表时间早于当前文章的？</li>
+<li>没有站内搜索（只能借助于google站内搜索之内的办法）</li>
+</ul>
+<p>这个主题可以使用基于github issue的 <a href="https://utteranc.es/" target="_blank" rel="noopener">utterances</a> 使用起来非常简单，参考<br><a href="https://www.cnblogs.com/stevexu/p/10808134.html" target="_blank" rel="noopener">博客使用 utterances 作为评论系统</a></p>
+<h2 id="打退堂鼓了"><a href="#打退堂鼓了" class="headerlink" title="打退堂鼓了"></a>打退堂鼓了</h2><p>尝试完之后，我又暂时退回了hexo阵营，为什么呢？最关键的原因在于，就连maupassant-hugo这个目前最佳的主题都没有提供站内搜索啊！！！相比之下hexo的基于jsonContent这种站内搜索才是我的最爱。<br>所以，我又缩回去了，重新安装了hexo+indigo最新版，并不费时间。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-06T01:58:01.252Z" itemprop="dateUpdated">2019-09-06 09:58:01</time>
+</span><br>
+
+
+        
+        版权归作者所有，转载请注明出处 <br/><a href="/2019/08/15/我差一点就转投hugo了/" target="_blank" rel="external">http://blogless.github.io/2019/08/15/我差一点就转投hugo了/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://blogless.github.io">
+            <img src="/img/avatar.jpg" alt="赵恒昶">
+            赵恒昶
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客/">博客</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2019/08/15/我差一点就转投hugo了/&title=《我差一点就转投hugo了》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2019/08/15/我差一点就转投hugo了/&title=《我差一点就转投hugo了》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2019/08/15/我差一点就转投hugo了/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《我差一点就转投hugo了》 — 博客寥寥&url=http://blogless.github.io/2019/08/15/我差一点就转投hugo了/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2019/08/15/我差一点就转投hugo了/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/08/25/MPI入门/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MPI入门</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/27/Modern-C/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Modern C++</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>赵恒昶 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2019/08/15/我差一点就转投hugo了/&title=《我差一点就转投hugo了》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2019/08/15/我差一点就转投hugo了/&title=《我差一点就转投hugo了》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2019/08/15/我差一点就转投hugo了/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《我差一点就转投hugo了》 — 博客寥寥&url=http://blogless.github.io/2019/08/15/我差一点就转投hugo了/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2019/08/15/我差一点就转投hugo了/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACxElEQVR42u3awW4iQQwEUP7/p7PSnnaVMFTZ04TD4xQNiPEbpHan3I9H/Pr6+/p+5fr6v+9+/+Szz19/8nHihYeHhzcq/fo2yZXkcSSFJg8oqRkPDw/vNO+6xPxmedvYX4maBx4eHt6v8q4X7rzZtG0mby14eHh4n8m7xuThxb6d4OHh4f0uL1m48+A1v5J/z/GsBQ8PDy/mtQOwT/j74HwPDw8PbzFVb0OH9i5ty6mrxcPDwzvAmx2TSpbsJPZNooe8GRT/MeDh4eEteHn8miDzEmdRRXJk4b/P4OHh4R3jJUW3bWB/+CD/hqftAQ8PD+8Arx3tzxb9diucH0EoAl88PDy8m3htA0gW6Db2LRb3cuOOh4eHd4KXB68zUnsoqh2kFT8MHh4e3k289l/92RmnZPAfxbJtbXh4eHhv5G2GVXeNtfJ2FQ3A8PDw8G7inYhT23f3DeataTEeHh7eaBHPI4zZmH8WixRZCx4eHt6atwlk2yW7bTb5Ya+n9ePh4eEd4O1HVm1MkE/nZht3PDw8vPfzZrfJjwLkBxHyh1s0Bjw8PLybeO0ArFiOy2n+7L4vHgoeHh7erbxijDQqYkNqKyx+Nzw8PLwFr91At+1hc1CgbSdFR8LDw8Mb8doQto0Y2q1wW9WLSvDw8PAO8NqIdlN0Er/OVvsX98XDw8O7lZcMmTYxQT4wS5b+toXg4eHhvYfXbq83Bwva8DeJPIqTBXh4eHgjXl5i8jiSZtA2ic0mGw8PD+8E76t87ZOPdgvefufTLTUeHh7eTbzNwYJZANGWcs246+gYHh4eXsvLh/R5WLDa3a+PguHh4eG9h9c2g1msMDtoNRvO4eHh4X0Cbx9MtMFue8dVY8DDw8N7C68d87eFzqKNH8ZgeHh4eAd4m7jh+vbJN58LfPHw8PBO8DYDsM0wbNYSVkcE8PDw8La8P389St93766kAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '你快回来～';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)我回来了！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

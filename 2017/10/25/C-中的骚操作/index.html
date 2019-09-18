@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>C++中的骚操作 | 博客寥寥 | 从记笔记转向写博客，就像从写私有项目转向写开源项目一样困难</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="C/C++,编程,STL">
+    <meta name="description" content="引子这篇文章的起因是我在写程序的时候，发现总是用到这样的简单循环： 1234for(int i = 0; i &amp;lt; n; i ++)&amp;#123;    // Do something to a[i]&amp;#125;  当然，有时候它也可能是这种形式： 1234for(auto x: a)&amp;#123;    // Do something to x&amp;#125;  这种循环操作中，后一次的操作与前一次">
+<meta name="keywords" content="C&#x2F;C++,编程,STL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++中的骚操作">
+<meta property="og:url" content="http://blogless.github.io/2017/10/25/C-中的骚操作/index.html">
+<meta property="og:site_name" content="博客寥寥">
+<meta property="og:description" content="引子这篇文章的起因是我在写程序的时候，发现总是用到这样的简单循环： 1234for(int i = 0; i &amp;lt; n; i ++)&amp;#123;    // Do something to a[i]&amp;#125;  当然，有时候它也可能是这种形式： 1234for(auto x: a)&amp;#123;    // Do something to x&amp;#125;  这种循环操作中，后一次的操作与前一次">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-05T11:37:58.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++中的骚操作">
+<meta name="twitter:description" content="引子这篇文章的起因是我在写程序的时候，发现总是用到这样的简单循环： 1234for(int i = 0; i &amp;lt; n; i ++)&amp;#123;    // Do something to a[i]&amp;#125;  当然，有时候它也可能是这种形式： 1234for(auto x: a)&amp;#123;    // Do something to x&amp;#125;  这种循环操作中，后一次的操作与前一次">
+    
+        <link rel="alternate" type="application/atom+xml" title="博客寥寥" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵恒昶</h5>
+          <a href="mailto:hengchang.zhao@foxmail.com" title="hengchang.zhao@foxmail.com" class="mail">hengchang.zhao@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/blogless" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">C++中的骚操作</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">C++中的骚操作</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-25T10:07:30.000Z" itemprop="datePublished" class="page-time">
+  2017-10-25
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引子"><span class="post-toc-number">1.</span> <span class="post-toc-text">引子</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正文"><span class="post-toc-number">2.</span> <span class="post-toc-text">正文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#transform-lt-map"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">transform &lt;- map</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#accumulate-lt-reduce"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">accumulate &lt;- reduce</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#copy-if-lt-filter"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">copy_if &lt;- filter</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于-lambada-表达式"><span class="post-toc-number">3.</span> <span class="post-toc-text">关于 lambada 表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#C-并行计算库"><span class="post-toc-number">4.</span> <span class="post-toc-text">C++ 并行计算库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">5.</span> <span class="post-toc-text">参考</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完"><span class="post-toc-number">6.</span> <span class="post-toc-text">完</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-C-中的骚操作"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">C++中的骚操作</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-25 18:07:30" datetime="2017-10-25T10:07:30.000Z"  itemprop="datePublished">2017-10-25</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>这篇文章的起因是我在写程序的时候，发现总是用到这样的简单循环：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Do something to a[i]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然，有时候它也可能是这种形式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> x: a)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Do something to x</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种循环操作中，后一次的操作与前一次的操作有时候没有必然联系，这样写也仅仅只是因为他们在同一个数组中。</p>
+<p>然而引入临时变量总是让人不爽，我总是情不自禁回想起 python 和 JavaScript 中的 map / reduce 操作。</p>
+<p>那么，C++ 里面有这种 map / reduce 函数吗？</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>现代语言总是会有一些高级操作，能够极大地提高我们编写程序的效率和准确度。用惯了 map / reduce，再回来使用循环总是会让人有些不爽。所幸，我们需要的功能 STL 中已经存在了，只是平常我们没有注意到。现在我就要把它发掘出来，让他重见天日。</p>
+<h3 id="transform-lt-map"><a href="#transform-lt-map" class="headerlink" title="transform &lt;- map"></a>transform &lt;- map</h3><p>transform 有两种形式：</p>
+<figure class="highlight c++"><figcaption><span><algorithm>transform</algorithm></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//unary operation(1)</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">InputIterator</span>, <span class="title">class</span> <span class="title">OutputIterator</span>, <span class="title">class</span> <span class="title">UnaryOperation</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">OutputIterator</span> <span class="title">transform</span> (<span class="title">InputIterator</span> <span class="title">first1</span>, <span class="title">InputIterator</span> <span class="title">last1</span>,</span></span><br><span class="line"><span class="class">                            <span class="title">OutputIterator</span> <span class="title">result</span>, <span class="title">UnaryOperation</span> <span class="title">op</span>);</span></span><br><span class="line"><span class="comment">//binary operation(2)</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">InputIterator1</span>, <span class="title">class</span> <span class="title">InputIterator2</span>,</span></span><br><span class="line"><span class="class">          <span class="title">class</span> <span class="title">OutputIterator</span>, <span class="title">class</span> <span class="title">BinaryOperation</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">OutputIterator</span> <span class="title">transform</span> (<span class="title">InputIterator1</span> <span class="title">first1</span>, <span class="title">InputIterator1</span> <span class="title">last1</span>,</span></span><br><span class="line"><span class="class">                            <span class="title">InputIterator2</span> <span class="title">first2</span>, <span class="title">OutputIterator</span> <span class="title">result</span>,</span></span><br><span class="line"><span class="class">                            <span class="title">BinaryOperation</span> <span class="title">binary_op</span>);</span></span><br></pre></td></tr></table></figure>
+
+<p>首先看一下 transform 是怎么实现的：</p>
+<figure class="highlight c++"><figcaption><span><algorithm>transform</algorithm></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (first1 != last1)</span><br><span class="line">    &#123;</span><br><span class="line">        *result = op(*first1); </span><br><span class="line"><span class="comment">// or: *result = binary_op(*first1, *first2++);</span></span><br><span class="line">        ++result;</span><br><span class="line">        ++first1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很简单直接，基本就是把我们手写 map 的过程抽象一下提取出模板。那我们直接上使用的例子就好了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">op_increase</span> <span class="params">(<span class="keyword">int</span> i)</span> </span>&#123; <span class="keyword">return</span> ++i; &#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::transform (foo.begin(), foo.end(), bar.begin(), op_increase);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// std::plus adds together its two arguments:</span></span><br><span class="line"><span class="built_in">std</span>::transform (foo.begin(), foo.end(), bar.begin(), foo.begin(), <span class="built_in">std</span>::plus&lt;<span class="keyword">int</span>&gt;());</span><br></pre></td></tr></table></figure>
+
+<p>一个经典的用法是对字符串实现大小写转换：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line">transform(s.begin(), s.end(), s_lower.begin(), ::<span class="built_in">tolower</span>);</span><br><span class="line">transform(s.begin(), s.end(), s_upper.begin(), ::<span class="built_in">toupper</span>);</span><br><span class="line"><span class="comment">//tolower和toupper 分别在两个地方定义了：一个是 std::tolower ，一个是在 cctype中定义的。</span></span><br><span class="line"><span class="comment">//这里使用::是为了使用cctype里面的那个。</span></span><br><span class="line"><span class="comment">//记得给s_lower、s_upper事先 resize(s.size())</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="accumulate-lt-reduce"><a href="#accumulate-lt-reduce" class="headerlink" title="accumulate &lt;- reduce"></a>accumulate &lt;- reduce</h3><p>C++ 中的 <code>accumulate</code> 函数同样是两种形式：</p>
+<figure class="highlight c++"><figcaption><span><numeric>accumulate</numeric></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//sum(1)</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">InputIterator</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">T</span> <span class="title">accumulate</span> (<span class="title">InputIterator</span> <span class="title">first</span>, <span class="title">InputIterator</span> <span class="title">last</span>, <span class="title">T</span> <span class="title">init</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//custom(2)</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">InputIterator</span>, <span class="title">class</span> <span class="title">T</span>, <span class="title">class</span> <span class="title">BinaryOperation</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">T</span> <span class="title">accumulate</span> (<span class="title">InputIterator</span> <span class="title">first</span>, <span class="title">InputIterator</span> <span class="title">last</span>, <span class="title">T</span> <span class="title">init</span>,</span></span><br><span class="line"><span class="class">                 <span class="title">BinaryOperation</span> <span class="title">binary_op</span>);</span></span><br></pre></td></tr></table></figure>
+
+<p>其实现：</p>
+<figure class="highlight c++"><figcaption><span><numeric>accumulate</numeric></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (first != last)</span><br><span class="line">    &#123;</span><br><span class="line">        init = init + *first;</span><br><span class="line"><span class="comment">// or: init = binary_op(init, *first);</span></span><br><span class="line">        ++first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> init;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用样例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//缺省求和</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::accumulate(nums.begin(), nums.end(), init);</span><br><span class="line"></span><br><span class="line"><span class="comment">//库函数求和</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::accumulate (numbers, numbers+<span class="number">3</span>, init, <span class="built_in">std</span>::plus&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line"></span><br><span class="line"><span class="comment">//自定义函数求和</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">op_plus</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123; <span class="keyword">return</span> a + b; &#125;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::accumulate (numbers, numbers+<span class="number">3</span>, init, op_plus);</span><br></pre></td></tr></table></figure>
+
+<p>当然，不仅仅是求和，通过修改传入的函数参数，还可以实现求积等功能。</p>
+<h3 id="copy-if-lt-filter"><a href="#copy-if-lt-filter" class="headerlink" title="copy_if &lt;- filter"></a>copy_if &lt;- filter</h3><p><code>copy_if</code> 是 copy 系列函数中的一个，会对被 copy 的对象进行筛选以判断是否执行copy操作。其函数原型为：</p>
+<figure class="highlight c++"><figcaption><span><algorithm>copy_if</algorithm></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">InputIterator</span>, <span class="title">class</span> <span class="title">OutputIterator</span>, <span class="title">class</span> <span class="title">UnaryPredicate</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">OutputIterator</span> <span class="title">copy_if</span> (<span class="title">InputIterator</span> <span class="title">first</span>, <span class="title">InputIterator</span> <span class="title">last</span>,</span></span><br><span class="line"><span class="class">                          <span class="title">OutputIterator</span> <span class="title">result</span>, <span class="title">UnaryPredicate</span> <span class="title">pred</span>);</span></span><br></pre></td></tr></table></figure>
+
+<p>内部实现参考：</p>
+<figure class="highlight c++"><figcaption><span><algorithm>copy_if</algorithm></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (first != last)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (pred(*first))</span><br><span class="line">        &#123;</span><br><span class="line">            *result = *first;</span><br><span class="line">            ++result;</span><br><span class="line">        &#125;</span><br><span class="line">        ++first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用样例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// copy only positive numbers:</span></span><br><span class="line"><span class="keyword">auto</span> it = <span class="built_in">std</span>::copy_if (foo.begin(), foo.end(), bar.begin(), [](<span class="keyword">int</span> i)&#123;<span class="keyword">return</span> !(i&lt;<span class="number">0</span>);&#125; );</span><br><span class="line">bar.resize(<span class="built_in">std</span>::distance(bar.begin(),it));  <span class="comment">// shrink container to new size</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="关于-lambada-表达式"><a href="#关于-lambada-表达式" class="headerlink" title="关于 lambada 表达式"></a>关于 lambada 表达式</h2><p>在传入函数参数的时候，往往作为参数的函数我们只会在函数中使用这么一次，这个时候单独定义一个全局函数是很没有必要的。在 ES6 中我们使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="noopener">箭头函数</a>，python 有 <a href="https://docs.python.org/3/reference/expressions.html#lambda" target="_blank" rel="noopener">Lambda Expressions</a>，Java 8 也引入了 <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html" target="_blank" rel="noopener">Lambda Expressions</a> 。而 C++11 中也引入了这个现代化的特性 ——（虽然很丑但也算是） <a href="http://zh.cppreference.com/w/cpp/language/lambda" target="_blank" rel="noopener">Lambda 表达式 (C++11 起)</a></p>
+<p>关于 C++ lambda 表达式，以后想起来的时候还会写文章总结。</p>
+<h2 id="C-并行计算库"><a href="#C-并行计算库" class="headerlink" title="C++ 并行计算库"></a>C++ 并行计算库</h2><p>实际上，我们还可以使用专业的并行计算库，充分利用多核性能来提高运算效率，如 Intel 的 TBB （Intel® Threading Building Blocks） 或者 Microsoft 的 PPL （Parallel Patterns Library）。具体用法可以参考 <a href="http://www.cnblogs.com/qicosmos/p/3517166.html" target="_blank" rel="noopener">c++并行计算库TBB和PPL的基本用法 - qicosmos(江南) - 博客园</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="http://www.cplusplus.com/reference/algorithm/transform/?kw=transform" target="_blank" rel="noopener">transform - C++ Reference</a></p>
+</li>
+<li><p><a href="http://www.cplusplus.com/reference/numeric/accumulate/?kw=accumulate" target="_blank" rel="noopener">accumulate - C++ Reference</a></p>
+</li>
+<li><p><a href="http://www.cplusplus.com/reference/algorithm/copy_if/" target="_blank" rel="noopener">copy_if - C++ Reference</a></p>
+</li>
+</ul>
+<h2 id="完"><a href="#完" class="headerlink" title="完"></a>完</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-05T11:37:58.693Z" itemprop="dateUpdated">2019-09-05 19:37:58</time>
+</span><br>
+
+
+        
+        版权归作者所有，转载请注明出处 <br/><a href="/2017/10/25/C-中的骚操作/" target="_blank" rel="external">http://blogless.github.io/2017/10/25/C-中的骚操作/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://blogless.github.io">
+            <img src="/img/avatar.jpg" alt="赵恒昶">
+            赵恒昶
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/">C/C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STL/">STL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程/">编程</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/25/C-中的骚操作/&title=《C++中的骚操作》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/25/C-中的骚操作/&title=《C++中的骚操作》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/25/C-中的骚操作/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C++中的骚操作》 — 博客寥寥&url=http://blogless.github.io/2017/10/25/C-中的骚操作/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/25/C-中的骚操作/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/10/25/奇技淫巧之尾递归/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">奇技淫巧之尾递归</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/21/或与加/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">或与加</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>赵恒昶 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/25/C-中的骚操作/&title=《C++中的骚操作》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/25/C-中的骚操作/&title=《C++中的骚操作》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/25/C-中的骚操作/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C++中的骚操作》 — 博客寥寥&url=http://blogless.github.io/2017/10/25/C-中的骚操作/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/25/C-中的骚操作/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3aQU7EMAwF0Ln/pYctErT8H3eQmr6uELSpXxcmsf16xdf72/Xz90c//7x/7S2XXRgYGLdlvE+v83uO/nq+fhJDHhsGBsZzGEdLH91z9MrzFdoQk9gwMDAwkhCTQJOtZPJeDAwMjPaAmr8yP+5iYGBgTA6xk+SbH2s/fhbHwMC4ISOvuv//zx/pb2BgYNyK8S6vtdJbG2IdFQYGxtaMtaXbEltewhvFg4GBsSnj2iGJ/KlJa+GXZzEwMB7DyItlV50uJwn6MOFiYGBsyrg2a7WjYJMtJgYGxtMYk4GJtqDfjmv88SwGBsYDGO3Y1lpLIC/kJeMX9VfBwMC4LWO++csTbltcy4fGMDAw9mbkqXatJdlu/hYbpRgYGFsz8tCL8ayyDBc1KZMdIAYGxqaMq4Yt8uAuGK3Iq3cYGBhbMNoyfVsIa1N20tSs0y4GBsZGjPbhJEGvBdqmbAwMjOcwriqNtZu/tRbm6P8GBgbGDRlrSbNeOk7ZFwyQYWBgbMdYK823jYR8/CJ5VzEzgoGBsR1jtNDSU21af81zOQYGxm0Z7cjX+T3nm7yiMZlHhYGBsSlj7ciaM9YOtHXCxcDA2JrRprm2xD8fApt8JgwMjJ0Y7QFyrQ2Zj1N8pKeBgYGxBWPtgLo2/pUfkvNoMTAwMNbuaYtuoyMrBgYGRjyKkRf0E2T+OTAwMJ7AmG/vko1j2yQoPgQGBsbWjEm6nGwNk8PwxeMaGBgY92N8AQayslClpOYQAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '你快回来～';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)我回来了！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

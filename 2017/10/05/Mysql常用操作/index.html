@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Mysql常用操作 | 博客寥寥 | 从记笔记转向写博客，就像从写私有项目转向写开源项目一样困难</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Mysql">
+    <meta name="description" content="动机 上一篇写 C API 操作 Mysql 的时候，本来打算简单陈列一下常用 Mysql 命令，结果发现篇幅太长，于是摘出来单独写了这篇 Mysql 常用操作总结。  干货这里只简单陈列一下 个人在私人数据库上 的常用操作： 说明一下，下面用&amp;lt;&amp;gt;包括起来的内容是操作时需要替换的部分，但是在含有sql脚本的语句中被替换成了【】 12345678910111213141516171819">
+<meta name="keywords" content="Mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql常用操作">
+<meta property="og:url" content="http://blogless.github.io/2017/10/05/Mysql常用操作/index.html">
+<meta property="og:site_name" content="博客寥寥">
+<meta property="og:description" content="动机 上一篇写 C API 操作 Mysql 的时候，本来打算简单陈列一下常用 Mysql 命令，结果发现篇幅太长，于是摘出来单独写了这篇 Mysql 常用操作总结。  干货这里只简单陈列一下 个人在私人数据库上 的常用操作： 说明一下，下面用&amp;lt;&amp;gt;包括起来的内容是操作时需要替换的部分，但是在含有sql脚本的语句中被替换成了【】 12345678910111213141516171819">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-05T11:44:35.678Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql常用操作">
+<meta name="twitter:description" content="动机 上一篇写 C API 操作 Mysql 的时候，本来打算简单陈列一下常用 Mysql 命令，结果发现篇幅太长，于是摘出来单独写了这篇 Mysql 常用操作总结。  干货这里只简单陈列一下 个人在私人数据库上 的常用操作： 说明一下，下面用&amp;lt;&amp;gt;包括起来的内容是操作时需要替换的部分，但是在含有sql脚本的语句中被替换成了【】 12345678910111213141516171819">
+    
+        <link rel="alternate" type="application/atom+xml" title="博客寥寥" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵恒昶</h5>
+          <a href="mailto:hengchang.zhao@foxmail.com" title="hengchang.zhao@foxmail.com" class="mail">hengchang.zhao@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/blogless" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Mysql常用操作</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Mysql常用操作</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-05T09:41:37.000Z" itemprop="datePublished" class="page-time">
+  2017-10-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/sql/">数据库</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动机"><span class="post-toc-number">1.</span> <span class="post-toc-text">动机</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#干货"><span class="post-toc-number">2.</span> <span class="post-toc-text">干货</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#友善度"><span class="post-toc-number">3.</span> <span class="post-toc-text">友善度</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完"><span class="post-toc-number">4.</span> <span class="post-toc-text">完</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Mysql常用操作"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Mysql常用操作</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-05 17:41:37" datetime="2017-10-05T09:41:37.000Z"  itemprop="datePublished">2017-10-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/sql/">数据库</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><blockquote>
+<p>上一篇写 C API 操作 Mysql 的时候，本来打算简单陈列一下常用 Mysql 命令，结果发现篇幅太长，于是摘出来单独写了这篇 Mysql 常用操作总结。</p>
+</blockquote>
+<h2 id="干货"><a href="#干货" class="headerlink" title="干货"></a>干货</h2><p>这里只简单陈列一下 <strong>个人在私人数据库上</strong> 的常用操作：</p>
+<p><em>说明一下，下面用&lt;&gt;包括起来的内容是操作时需要替换的部分，但是在含有sql脚本的语句中被替换成了【】</em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 登入/登出</span></span><br><span class="line">mysql -u &lt;用户名&gt; -p <span class="comment"># 登录 mysql，自己一个人用的话用户名 root 就行，下一行需要输入密码</span></span><br><span class="line">quit    <span class="comment"># 退出 mysq</span></span><br><span class="line"><span class="built_in">exit</span>    <span class="comment"># 退出 mysq</span></span><br><span class="line">^C      <span class="comment"># 退出 mysql</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 系统信息</span></span><br><span class="line">select user();      <span class="comment"># 查看当前用户</span></span><br><span class="line">select version();   <span class="comment"># 查看当前数据库版本</span></span><br><span class="line">show variables like <span class="string">'collation_%'</span>;  <span class="comment"># 查看当前使用的字符集</span></span><br><span class="line">show character <span class="built_in">set</span>;                 <span class="comment"># 查看可以支持的字符集</span></span><br><span class="line">alter database &lt;表名称&gt; character <span class="built_in">set</span> utf-8;   <span class="comment"># 修改数据库的字符集</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据库操作</span></span><br><span class="line">create database &lt;新数据库名称&gt;;   <span class="comment"># 创建数据库</span></span><br><span class="line">show databases;     <span class="comment"># 显示所有数据库</span></span><br><span class="line">use &lt;数据库名称&gt;；    <span class="comment"># 进入数据库</span></span><br><span class="line">drop &lt;数据库名称&gt;；   <span class="comment"># 删除数据库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 表操作</span></span><br><span class="line">create table &lt;新表名称&gt;(    </span><br><span class="line">    &lt;字段1&gt;&lt;数据类型1&gt;,</span><br><span class="line">    &lt;字段2&gt;&lt;数据类型2&gt;,</span><br><span class="line">    ...</span><br><span class="line">    );              <span class="comment"># 创建表</span></span><br><span class="line">show tables;        <span class="comment"># 显示所有表</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 表内操作</span></span><br><span class="line">descbile &lt;表名称&gt;;   <span class="comment"># 显示表的数据结构</span></span><br><span class="line">select * from &lt;表名称&gt;;   <span class="comment"># 显示表内容</span></span><br><span class="line">insert into &lt;表名称&gt; </span><br><span class="line">    [(&lt;字段1&gt;，&lt;字段2&gt;,&lt;字段3&gt;)] </span><br><span class="line">    values (&lt;值1&gt;，&lt;值2&gt;，&lt;值3&gt;);    <span class="comment"># 向表内添加数据</span></span><br><span class="line">update &lt;表名称&gt; </span><br><span class="line">    <span class="built_in">set</span> &lt;字段1&gt; = &lt;新值1&gt;，&lt;字段2&gt; = &lt;新值2&gt;</span><br><span class="line">    <span class="built_in">where</span> &lt;字段x&gt; = &lt;新值x&gt;;        <span class="comment"># 更新表中字段</span></span><br><span class="line">delete from &lt;表名称&gt; </span><br><span class="line">    <span class="built_in">where</span> &lt;条件筛选&gt;;               <span class="comment"># 删除指定记录</span></span><br><span class="line">delete from &lt;表名称&gt;；              <span class="comment"># 删除整个表</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 表结构的修改</span></span><br><span class="line">alter table &lt;旧表名&gt; rename to &lt;新表名&gt;;  <span class="comment"># 修改表名</span></span><br><span class="line">alter table &lt;表名称&gt; add primary key(&lt;字段名称&gt;);   <span class="comment"># 把某个字段设置为主键</span></span><br><span class="line">alter table &lt;表名称&gt; drop primary key(&lt;字段名称&gt;);  <span class="comment"># 把某个字段删除主键定义</span></span><br><span class="line">alter table &lt;表名称&gt; add &lt;字段名称&gt; &lt;数据类型&gt;;    <span class="comment"># 增加字段并规定数据类型</span></span><br><span class="line">alter table &lt;表名称&gt; drop &lt;字段名称&gt;;             <span class="comment"># 删除字段</span></span><br><span class="line">alter table &lt;表名称&gt; modify &lt;字段名称&gt; &lt;数据类型&gt; [not null];     <span class="comment"># 修改字段属性</span></span><br><span class="line">alter table &lt;表名称&gt; change &lt;旧字段名称&gt; &lt;新字段名称&gt; &lt;数据类型&gt;;   <span class="comment"># 修改字段名</span></span><br><span class="line"></span><br><span class="line">create table &lt;旧表名称&gt; like &lt;旧表名称&gt;;        <span class="comment"># 用旧表的架构建立一个新的空表</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># I/O 操作</span></span><br><span class="line">mysql &lt; a.sql           <span class="comment"># 对当前数据库执行外部脚本</span></span><br><span class="line">mysql 【表名称】 &lt; a.sql  <span class="comment"># 对指定数据库执行外部脚本</span></span><br><span class="line"></span><br><span class="line">load data <span class="built_in">local</span> infile <span class="string">"&lt;文件名&gt;"</span> into &lt;表名称&gt;;      <span class="comment"># 数据传入</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，大部分 mysql 操作命令都是以“;”（或者“\g”）结尾的，这一点与 C 语言是一致的；少部分不能加”;“，比如执行外部脚本和备份数据库这种。</p>
+<h2 id="友善度"><a href="#友善度" class="headerlink" title="友善度"></a>友善度</h2><p>博主水平有限，记录的内容难免有所疏漏和不足，欢迎评论补充 ～</p>
+<h2 id="完"><a href="#完" class="headerlink" title="完"></a>完</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-05T11:44:35.678Z" itemprop="dateUpdated">2019-09-05 19:44:35</time>
+</span><br>
+
+
+        
+        版权归作者所有，转载请注明出处 <br/><a href="/2017/10/05/Mysql常用操作/" target="_blank" rel="external">http://blogless.github.io/2017/10/05/Mysql常用操作/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://blogless.github.io">
+            <img src="/img/avatar.jpg" alt="赵恒昶">
+            赵恒昶
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql/">Mysql</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/05/Mysql常用操作/&title=《Mysql常用操作》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/05/Mysql常用操作/&title=《Mysql常用操作》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/05/Mysql常用操作/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mysql常用操作》 — 博客寥寥&url=http://blogless.github.io/2017/10/05/Mysql常用操作/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/05/Mysql常用操作/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/10/06/一行脚本搭建局域网服务器/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">一行脚本搭建局域网服务器</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/05/C-操作-Mysql/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">C++ 操作 Mysql</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>赵恒昶 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/05/Mysql常用操作/&title=《Mysql常用操作》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/05/Mysql常用操作/&title=《Mysql常用操作》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/05/Mysql常用操作/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mysql常用操作》 — 博客寥寥&url=http://blogless.github.io/2017/10/05/Mysql常用操作/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/05/Mysql常用操作/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACOElEQVR42u3awY7DMAiE4b7/S2elvVYmM0APhj+nareN8+UwAuPPR76e/yv++/fn069O91R+VbpgwIBxLeMJL33J+PvxWvGrUX4FAwaMDQwlTPWIdEMz9zpgwIABQ7ndKRbdUNaDHgYMGDD0wI3/ogRuriSFAQPGZoZyO6W9dENZaYybe3EYMGBcyOhqMn/x+YfzDRgwYFzCeMyrK0yVzTvjqWDAgDGaEY8n3cetDDXdVtk4uwEDBoxBDCX+cm1nrsazR6QwYMAYzeh6aD2Ue7fkYMCAsY2RKxxzQ4VcOfhSJsKAAWM0I9fWut9xxwO5ghUGDBhTGW55Fwdf5eiGS4IBA8Zshl4O1qmVUH5pZWHAgLGAkWs+u6I5vo8UwTBgwFjGcLfY9OGB29DCgAEDxndpKB0SlRvUOk+JeKlihQEDxgiG8uj66LHe9Opl4kuFCwMGjBEMd6xYWVgfCRhRm5uOwoAB4yqGG4j6qY36tp3y7qUmFgYMGJczlBB0l9RHj5XBwzF2YcCAMY6Ra1+lAxBmuelu2xnvBgYMGCMYdkLLm196lLvFqDHfgAEDxuWMrsOmvZGaXAUGDBhDGY95VQ5v5cpEaS0YMGCMZtTDNH5QY1vfXAsGDBjbGLkjWZVtO3fwIL17GDBgLGDkNtTs02dN7esxcGHAgLGeId3O3OjPHch4GWTCgAFjPaNrbKAMD/QxAwwYMDYw9JjLHRFz/2sAYMCAsYCRayBzEemOGSqDBxgwYIxg/AEWeNsZOXhl+wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '你快回来～';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)我回来了！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

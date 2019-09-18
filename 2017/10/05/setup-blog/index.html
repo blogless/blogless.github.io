@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>使用 hexo 搭建 github 博客 | 博客寥寥 | 从记笔记转向写博客，就像从写私有项目转向写开源项目一样困难</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="博客,随笔">
+    <meta name="description" content="动机 搭建一个属于自己的博客的想法由来已久，可是直到现在我才动手。这里面的原因当然很多，不过最重要的原因当然还是懒（&amp;gt;.&amp;lt;）。一来自己还没有固定的居所，想要自己本地建站还不稳定；二来嘛，则是平常没什么功夫去写博客，写个文章还要想着美工什么的实在让人心烦。不过现在这些都不是问题了，可以把博客架在云上，也有时间操弄自己的博客了。现在暂时还是先把博客放在 github 上，以后可能考虑会放到">
+<meta name="keywords" content="博客,随笔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 hexo 搭建 github 博客">
+<meta property="og:url" content="http://blogless.github.io/2017/10/05/setup-blog/index.html">
+<meta property="og:site_name" content="博客寥寥">
+<meta property="og:description" content="动机 搭建一个属于自己的博客的想法由来已久，可是直到现在我才动手。这里面的原因当然很多，不过最重要的原因当然还是懒（&amp;gt;.&amp;lt;）。一来自己还没有固定的居所，想要自己本地建站还不稳定；二来嘛，则是平常没什么功夫去写博客，写个文章还要想着美工什么的实在让人心烦。不过现在这些都不是问题了，可以把博客架在云上，也有时间操弄自己的博客了。现在暂时还是先把博客放在 github 上，以后可能考虑会放到">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-06T01:24:51.130Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 hexo 搭建 github 博客">
+<meta name="twitter:description" content="动机 搭建一个属于自己的博客的想法由来已久，可是直到现在我才动手。这里面的原因当然很多，不过最重要的原因当然还是懒（&amp;gt;.&amp;lt;）。一来自己还没有固定的居所，想要自己本地建站还不稳定；二来嘛，则是平常没什么功夫去写博客，写个文章还要想着美工什么的实在让人心烦。不过现在这些都不是问题了，可以把博客架在云上，也有时间操弄自己的博客了。现在暂时还是先把博客放在 github 上，以后可能考虑会放到">
+    
+        <link rel="alternate" type="application/atom+xml" title="博客寥寥" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵恒昶</h5>
+          <a href="mailto:hengchang.zhao@foxmail.com" title="hengchang.zhao@foxmail.com" class="mail">hengchang.zhao@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/blogless" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">使用 hexo 搭建 github 博客</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">使用 hexo 搭建 github 博客</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-05T02:01:55.000Z" itemprop="datePublished" class="page-time">
+  2017-10-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/other/">随笔</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动机"><span class="post-toc-number">1.</span> <span class="post-toc-text">动机</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#建站方案选择"><span class="post-toc-number">2.</span> <span class="post-toc-text">建站方案选择</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开始动手"><span class="post-toc-number">3.</span> <span class="post-toc-text">开始动手</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#npm-的配置"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">npm 的配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#theme-的切换"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">theme 的切换</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#调教博客"><span class="post-toc-number">4.</span> <span class="post-toc-text">调教博客</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改侧边栏为中文"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">修改侧边栏为中文</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#tags-amp-categories"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">tags &amp; categories</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#返回顶部"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">返回顶部</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#代码自动换行"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">代码自动换行</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#插入图片设置"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">插入图片设置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#插入公式支持"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">插入公式支持</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#部署"><span class="post-toc-number">5.</span> <span class="post-toc-text">部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TODO"><span class="post-toc-number">6.</span> <span class="post-toc-text">TODO</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#干货"><span class="post-toc-number">7.</span> <span class="post-toc-text">干货</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#友善度"><span class="post-toc-number">8.</span> <span class="post-toc-text">友善度</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完"><span class="post-toc-number">9.</span> <span class="post-toc-text">完</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-setup-blog"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">使用 hexo 搭建 github 博客</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-05 10:01:55" datetime="2017-10-05T02:01:55.000Z"  itemprop="datePublished">2017-10-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/other/">随笔</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><blockquote>
+<p>搭建一个属于自己的博客的想法由来已久，可是直到现在我才动手。这里面的原因当然很多，不过最重要的原因当然还是懒（&gt;.&lt;）。一来自己还没有固定的居所，想要自己本地建站还不稳定；二来嘛，则是平常没什么功夫去写博客，写个文章还要想着美工什么的实在让人心烦。不过现在这些都不是问题了，可以把博客架在云上，也有时间操弄自己的博客了。现在暂时还是先把博客放在 github 上，以后可能考虑会放到 阿里云 上（谁知道什么时候才会动手……）。</p>
+</blockquote>
+<hr>
+<h2 id="建站方案选择"><a href="#建站方案选择" class="headerlink" title="建站方案选择"></a>建站方案选择</h2><p>当然是先要在 <del>全球最大的同性社交网站</del> github 建一个主页了！</p>
+<p><a href="https://pages.github.com/" target="_blank" rel="noopener">github pages</a> 是必须要的，官方给了一个建站方案是 jekyll，当然我也首先试了一下官方方案，不过发现自己并不喜欢这个方案，最重要的原因是 —— 需要多安装一个 Ruby！我对此事是拒绝的，因为我并不想安装一些平常用不到的东西（别误会，我对 Ruby 本身并没有偏见）。</p>
+<p>之后我发现了使用 Node.js 的 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>，这才是我想要的！</p>
+<h2 id="开始动手"><a href="#开始动手" class="headerlink" title="开始动手"></a>开始动手</h2><p>好吧，这里没什么可写的，写得再多也没有 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo官网</a> 权威、时效性强，需要建站的话，直接参考 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo官网</a> 就好了。</p>
+<p>这里只说几个新手可能遇到的问题，老司机们请抄近道。</p>
+<h3 id="npm-的配置"><a href="#npm-的配置" class="headerlink" title="npm 的配置"></a>npm 的配置</h3><p>虽然有了更为先进的 yarn，我还是固守在 npm 的身边，毕竟用习惯了。这里使用 npm 可能出现的问题是超时。原因嘛，npm 服务器在国外，经常被墙。国内的用户们想要使用 npm 的话，可以选择 <a href="https://npm.taobao.org/mirrors/npm/" target="_blank" rel="noopener">淘宝镜像</a>。当然，它会很热情地推荐你使用 cnpm 来代替 npm，不要理它。<br>关于如何配置淘宝镜像，网上很容易搜到，其实一行命令就好：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置 registry</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://r.cnpmjs.org/</span><br><span class="line"><span class="comment"># 验证配置是否修改成功</span></span><br><span class="line">npm config get registry</span><br></pre></td></tr></table></figure>
+
+<h3 id="theme-的切换"><a href="#theme-的切换" class="headerlink" title="theme 的切换"></a>theme 的切换</h3><p>安装之后，默认的 landscape 主题我是拒绝的，选择一个能够长时间忍受的主题还是很有必要的。我在 <a href="https://hexo.io/themes/" target="_blank" rel="noopener">官网</a> 上找到了一个 Material Design 的 indigo 主题。没错，就是你现在看到的这个！<br>安装 indigo 主题，请戳 <a href="https://github.com/yscoder/hexo-theme-indigo/wiki" target="_blank" rel="noopener">作者的github</a>，按照大佬的指导一步步来就行了。</p>
+<h2 id="调教博客"><a href="#调教博客" class="headerlink" title="调教博客"></a>调教博客</h2><h3 id="修改侧边栏为中文"><a href="#修改侧边栏为中文" class="headerlink" title="修改侧边栏为中文"></a>修改侧边栏为中文</h3><p>进入 indigo 的配置文件（_config.yml），仿照【menu-home】，在【menu-archives】等下面几个 menu 的配置里，分别加上 text 属性作为显示的名称：</p>
+<figure class="highlight yml"><figcaption><span>/themes/indigo/_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">  home:</span></span><br><span class="line"><span class="attr">    text:</span> <span class="string">主页</span></span><br><span class="line"><span class="attr">    url:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">  archives:</span></span><br><span class="line"><span class="attr">    text:</span> <span class="string">归档</span></span><br><span class="line"><span class="attr">    url:</span> <span class="string">/archives</span></span><br></pre></td></tr></table></figure>
+
+<p>然后可以修改后面的【tags_title】【archives_title】【categories_title】属性，作为从 menu 进入相应页面后的标题：</p>
+<figure class="highlight yml"><figcaption><span>/themes/indigo/_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 页面标题</span></span><br><span class="line"><span class="attr">tags_title:</span> <span class="string">标签</span></span><br><span class="line"><span class="attr">archives_title:</span> <span class="string">归档</span></span><br><span class="line"><span class="attr">categories_title:</span> <span class="string">分类</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="tags-amp-categories"><a href="#tags-amp-categories" class="headerlink" title="tags &amp; categories"></a>tags &amp; categories</h3><p>下面将以 tags 为例进行说明，categories 同理设置即可。</p>
+<p>首先需要开启 hexo 的 tags 功能：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
+
+<p>此时会生成一个新的文件 source/tags/index.md，修改其内容：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2017-10-04 19:50:45</span><br><span class="line">type: "tags"</span><br><span class="line">layout: "tags"</span><br><span class="line">comment: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>修改 scaffolds/draft.md：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">tags: &#123;&#123; tags &#125;&#125;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>修改 scaffolds/post.md：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags: &#123;&#123; tags &#125;&#125;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>检查 indigo 主题下的 menu-tags 是否打开：</p>
+<figure class="highlight yml"><figcaption><span>/themes/indigo/_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">    tags:</span> <span class="string">/tags</span></span><br></pre></td></tr></table></figure>
+
+<p>最后是自己的文章里要有相应的 tags 来区分，比如：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 使用hexo搭建github博客</span><br><span class="line">date: 2017-10-05 10:01:55</span><br><span class="line">tags: [随笔, 博客]</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>注意冒号之后的空格，以及“,”要用半角不要用全角，否则程序会不认。</p>
+<h3 id="返回顶部"><a href="#返回顶部" class="headerlink" title="返回顶部"></a>返回顶部</h3><p>hexo 竟然没有自带返回顶部的按钮，好奇怪。不过自己做一个也费不了什么功夫。我打算自己做一个，稍后发上来。</p>
+<h3 id="代码自动换行"><a href="#代码自动换行" class="headerlink" title="代码自动换行"></a>代码自动换行</h3><p>有空再做</p>
+<h3 id="插入图片设置"><a href="#插入图片设置" class="headerlink" title="插入图片设置"></a>插入图片设置</h3><p>图片路径有两种，一种是绝对路径，可以将图片单独存放在source/images路径下，通过类似</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](/images/image1.jpg)</span><br></pre></td></tr></table></figure>
+
+<p>这种方式来插入图片。</p>
+<p>另一种是相对路径，图片可以和博文放在同目录下，这种方法需要调整一下配置文件：</p>
+<figure class="highlight yml"><figcaption><span>_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>以后再执行命令$ hexo new <post_name>时，hexo就会在生成文章post_name.md的同时，生成同名文件夹post_name。将图片资源放在post_name中，文章就可以使用相对路径引用图片资源了，类似于这种用法：</post_name></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](image1.jpg)</span><br></pre></td></tr></table></figure>
+
+<h3 id="插入公式支持"><a href="#插入公式支持" class="headerlink" title="插入公式支持"></a>插入公式支持</h3><p>Hexo 博客中插入公式方案，我选的是 <a href="https://www.mathjax.org/" target="_blank" rel="noopener">MathJax</a> ，参见 <a href="/2017/10/18/Hexo博客插入数学公式/">Hexo博客插入数学公式</a></p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>踩过的一个坑:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fatal: Could not <span class="built_in">read</span> from remote repository.</span><br><span class="line">无法读取远程存储库。</span><br><span class="line"></span><br><span class="line">请确保你有正确的访问权限和存储库的存在。</span><br></pre></td></tr></table></figure>
+
+<p>出现这种错误，有可能在配置 _config.yml 的时候，deploy 没有写全，或者 repo 的写法不对，参考如下格式：</p>
+<figure class="highlight yml"><figcaption><span>/_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="attr">http://github.com/username/username.github.io.git</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，我们可以把生成、部署的命令，写成一个脚本，这样就不用去刻意记命令了：</p>
+<figure class="highlight bash"><figcaption><span>/upload.sh</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># hexo clean    # 清理</span></span><br><span class="line">hexo generate <span class="comment"># 生成</span></span><br><span class="line">hexo deploy   <span class="comment"># 部署</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><p>评论系统；<br>分享功能；<br>目录折叠；<br>代码高亮调整（比如bash）、行号隐藏显示可调；</p>
+<h2 id="干货"><a href="#干货" class="headerlink" title="干货"></a>干货</h2><p>所以这篇博客到底说了什么呢？</p>
+<p>什么也没说，只是把 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo建站方案</a> 和 <a href="https://github.com/yscoder/hexo-theme-indigo/wiki" target="_blank" rel="noopener">indigo主题</a> 两个网址甩给了你，不会就找官方嘛！</p>
+<p>嗯，其实我就是来测试自己搭的博客是不是能用的 O(∩_∩)O</p>
+<h2 id="友善度"><a href="#友善度" class="headerlink" title="友善度"></a>友善度</h2><p>由于这篇博文是在博客搭建得差不多才开始写的，所以记录的内容可能有所疏漏，欢迎评论补充 ～</p>
+<h2 id="完"><a href="#完" class="headerlink" title="完"></a>完</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-06T01:24:51.130Z" itemprop="dateUpdated">2019-09-06 09:24:51</time>
+</span><br>
+
+
+        
+        版权归作者所有，转载请注明出处 <br/><a href="/2017/10/05/setup-blog/" target="_blank" rel="external">http://blogless.github.io/2017/10/05/setup-blog/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://blogless.github.io">
+            <img src="/img/avatar.jpg" alt="赵恒昶">
+            赵恒昶
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客/">博客</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/05/setup-blog/&title=《使用 hexo 搭建 github 博客》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/05/setup-blog/&title=《使用 hexo 搭建 github 博客》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/05/setup-blog/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用 hexo 搭建 github 博客》 — 博客寥寥&url=http://blogless.github.io/2017/10/05/setup-blog/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/05/setup-blog/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/10/05/C-操作-Mysql/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">C++ 操作 Mysql</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/04/hello-world/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hello World</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>赵恒昶 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blogless.github.io/2017/10/05/setup-blog/&title=《使用 hexo 搭建 github 博客》 — 博客寥寥&pic=http://blogless.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blogless.github.io/2017/10/05/setup-blog/&title=《使用 hexo 搭建 github 博客》 — 博客寥寥&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blogless.github.io/2017/10/05/setup-blog/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用 hexo 搭建 github 博客》 — 博客寥寥&url=http://blogless.github.io/2017/10/05/setup-blog/&via=http://blogless.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blogless.github.io/2017/10/05/setup-blog/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3aQW7DMAwEwPz/0ynQU4rCylJUiloanYzGiT06sCTFxyNez+/1ev26fv/997eu7sk/XbAwMDBuy3gOV3LP+Lvjjci3Zvz7GBgYJzDyIJvcOd6manAf34OBgYGRXCdBthp2MTAwMPqMcehMgiwGBgZGlZEUsXM9rmrS+fFaHAMD44aMuYOBv7n++PkGBgbGv2f0G/3VILvqyOHH72BgYGzNSB4QFZDFoJk05pLtKOwTBgbGpoy80dZpqFUT0MvnYmBgbMrIQ+3cUFenqZenkhgYGHsz5pKwasqYhOBODw0DA+MExidKymphnBfDl7+AgYGxNWPVMEQepqtp32RqiIGBsRGjUyLODU/0y93LriEGBsZ2jGpYTO6fK1bz5O+ya4iBgXEAo3o8kFOrzbvqEQUGBsbejFWnCtWj0H7N/SZ5xcDA2Igxl8Alj++km62ZEQwMjO0YcwcD/VdPxi+qY2QYGBi7MqopXT4c1j8ETbZ4MjPFwMC4FaPT8Mrb9/khaGeAAwMDY1fGXC5ZDb5zgbhQMGNgYBzDmCtf1wbifEMLXUMMDIybMzqt//7xQD4KVrgTAwNjO8azuNY2/fODgTcbjYGBsTUjX9WBjGoRWw3cGBgYpzGqpeP4YWtDcCGJxMDAOICRB9n+K3b+A7wJuBgYGMczOsNbeVKYp6EYGBgYqxhJIVp9dQwMjDMZ1SJ2Ln3Mxy/KCSUGBsbWjAWTGkuHKj4CwMDAuCvjC8j4zFLVO3ZVAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '你快回来～';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)我回来了！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
